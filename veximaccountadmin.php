@@ -36,7 +36,7 @@ class veximaccountadmin extends rcube_plugin
 		$this->add_texts('localization/');
 		$this->register_handler('plugin.body', array($this, 'veximaccountadmin_form'));
 
-		$rcmail = rcmail::get_instance();		
+		$rcmail = rcmail::get_instance();
 		$rcmail->output->set_pagetitle($this->gettext('accountadministration'));
 	    $rcmail->output->send('plugin');
 	}
@@ -73,7 +73,7 @@ class veximaccountadmin extends rcube_plugin
 				'type' => 'php',
 				'message' => "Failed to load VeximAccountAdmin plugin config"), true, true);
 		}
-	} 
+	}
 
 	private function _db_connect($mode)
 	{
@@ -755,43 +755,50 @@ class veximaccountadmin extends rcube_plugin
 		return $address_table;
 	}
 
-
-    private function _crypt_password($clear, $salt = '')
-    {
-
+	private function _crypt_password($clear, $salt = '')
+	{
 		// Function from Vexim.
-
 		$settings = $this->_get_configuration();
 		$cryptscheme = $this->config['vexim_cryptscheme'];
 
-        if ($cryptscheme == 'sha')
-        {
-            $hash = sha1($clear);
-            $cryptedpass = '{SHA}' . base64_encode(pack('H*', $hash));
-        }
-        else
-        {
-            if ($salt != '')
-            {
-                if ($cryptscheme == 'des')
-                {
-                    $salt = substr($salt, 0, 2);
-                }
-                else
-                if ($cryptscheme == 'md5')
-                {
-                    $salt = substr($salt, 0, 12);
-                }
-                else
-                {
-                    $salt = '';
-                }
-            }
-            $cryptedpass = crypt($clear, $salt);
-        }
+		if ($cryptscheme == 'sha')
+		{
+			$hash = sha1($clear);
+			$cryptedpass = '{SHA}' . base64_encode(pack('H*', $hash));
+		}
+		else
+		{
+			if ($cryptscheme == 'des')
+			{
+				if ($salt != '')
+				{
+					$salt = substr($salt, 0, 2);
+				}
+				else
+				{
+					$salt = substr(uniqid(), 0, 2);
+				}
+			}
+			else
+			if ($cryptscheme == 'md5')
+			{
+				if ($salt != '')
+				{
+					$salt = substr($salt, 0, 12);
+				}
+				else
+				{
+					$salt = '$1$'.substr(uniqid(), 0, 8).'$';
+				}
+			}
+			else
+			{
+				$salt = '';
+			}
+			$cryptedpass = crypt($clear, $salt);
+		}
 
-        return $cryptedpass;
-		
+		return $cryptedpass;
 	}
 	
 }
