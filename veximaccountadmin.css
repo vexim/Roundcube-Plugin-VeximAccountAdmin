@@ -1,0 +1,158 @@
+
+table.vexim-settings th {
+	width: 188px;
+	padding: 1px 10px 7px 0;
+	font-weight: normal;
+	text-align: left;
+	vertical-align: top;
+}
+
+table.vexim-settings td {
+	width: auto;
+	padding: 1px 0 7px 0;
+	font-weight: normal;
+	text-align: left;
+	vertical-align: top;
+}
+
+div.fieldset-content {
+	padding: 8px 2px 4px 5px;
+}
+
+div.fieldset-content p {
+	padding-top: 0;
+	margin-top: 0;
+}
+
+p.introtext {
+	margin-top: 0;
+}
+
+p.adminlink {
+	color: green;	
+}
+
+p.adminlink a, p.adminlink a:link, p.adminlink a:visited, p.adminlink a:active {
+	color: green;
+	text-decoration: underline;
+}
+
+p.adminlink a:hover {
+	color: green;
+	text-decoration: hover;
+}
+
+.tablinkveximaccountadmin a {
+	padding-left: 0;
+	margin-left: 0;
+}
+
+.vexim-explanation {
+	font-size: 7pt;
+	margin-top: 2px;
+	color: #767676;
+}
+
+span.sameline {
+	white-space: nowrap;	
+}
+
+textarea.textarea {
+	width: 315px;
+	height: 120px;
+}
+
+input.text-short {
+	width: 75px;
+}
+
+select.select {
+	width: 75px;
+}
+
+input.text-long {
+	width: 315px;
+}
+
+/* ------------------------ Header block styles ------------------------ */
+
+#headerblock-rules-cont
+{
+  border: 1px solid #999999;
+  background-color: #F9F9F9;
+  height: 120px;
+  overflow: auto;
+  width: 520px;
+}
+
+body.headerblock-rules-table
+{
+  margin: 0px;
+  background-color: #F9F9F9;
+}
+
+#headerblock-rules-table
+{
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+  /* css hack for IE */
+  width: expression('auto');
+}
+
+/* safari hack \*/
+html>body*#headerblock-rules-table[id$="headerblock-rules-table"]:not([class="none"]) { table-layout: auto; }
+/**/
+
+/* safari hack \*/
+html>body*#spam-langs-table[id$="spam-langs-table"]:not([class="none"]) { table-layout: auto; }
+/**/
+
+#headerblock-rules-table td.field, #headerblock-rules-table td.email
+{
+  text-align: left;
+  vertical-align: middle;
+}
+
+#headerblock-rules-table td.control
+{
+  text-align: right;
+  vertical-align: middle;
+}
+
+#listcontrols
+{
+  font-size: 11px;
+  text-align: right;
+  padding: 5px 0 0 0;
+  vertical-align: bottom;
+}
+
+#listcontrols a,
+#listcontrols a:active,
+#listcontrols a:visited
+{
+  color: #CC0000;
+  font-size: 11px;
+  text-decoration: none;
+}
+
+#listcontrols a:hover
+{
+  text-decoration: underline;
+}
+
+table.generalprefstable td.title {
+  width: 155px;
+}
+
+a.deleteall-link, a.deleteall-link:active, a.deleteall-link:visited {
+  color: #CC0000;
+  font-size: 11px;
+  text-decoration: none;
+  float:right;
+}
+
+a.deleteall-link:hover {
+  text-decoration: underline;
+}
