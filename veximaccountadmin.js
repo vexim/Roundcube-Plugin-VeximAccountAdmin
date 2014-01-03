@@ -6,7 +6,7 @@ if (window.rcmail) {
 	// <span id="settingstabdefault" class="tablink"><roundcube:button command="preferences" type="link" label="preferences" title="editpreferences" /></span>
 	var tab = $('<span>').attr('id', 'settingstabpluginveximaccountadmin').addClass('tablink tablinkveximaccountadmin');
 	
-	var button = $('<a>').attr('href', rcmail.env.comm_path+'&_action=plugin.veximaccountadmin').attr('style', 'padding-left:5px;').html(rcmail.gettext('accountadmin','veximaccountadmin')).appendTo(tab);
+	var button = $('<a>').attr('href', rcmail.env.comm_path+'&_action=plugin.veximaccountadmin').html(rcmail.gettext('accountadmin','veximaccountadmin')).appendTo(tab);
 	button.bind('click', function(e){ return rcmail.command('plugin.veximaccountadmin', this) });
 
 	// add button and register commands

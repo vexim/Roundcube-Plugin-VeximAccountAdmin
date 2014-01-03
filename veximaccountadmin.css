@@ -1,3 +1,6 @@
+div#pluginbody {
+	overflow-y: scroll;
+}
 
 table.vexim-settings th {
 	width: 188px;
