@@ -77,7 +77,7 @@ class veximaccountadmin extends rcube_plugin
 
 	private function _db_connect($mode)
 	{
-		$this->db = new rcube_db($this->config['db_dsn'], '', false);
+		$this->db = rcube_db::factory($this->config['db_dsn'], '', false);
 		$this->db->db_connect($mode);
 
 		// check DB connections and exit on failure
