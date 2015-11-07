@@ -25,8 +25,6 @@ $veximaccountadmin_config['vexim_vacation_maxlength'] = 255;
 	Support for the Exim/Vexim customizations described on
 	http://axel.sjostedt.no/misc/vexim/
 */
-// Set this to true if you have added the auto spam folder transporters to Vexim/Exim
-$veximaccountadmin_config['movespam_transporter'] = false;
 // Set this to true if you have added the parsefolders shell script
 $veximaccountadmin_config['parsefolders_script'] = false;
 $veximaccountadmin_config['parsefolders_script_show_tip'] = true; // Show notice about learnasspam folders
