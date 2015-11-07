@@ -1,29 +1,26 @@
-Roundcube VeximAccountAdmin plugin: README
-Last updated: 2009-11-12
-===========================================
+# Roundcube VeximAccountAdmin plugin #
 
-About
-================
+## About ##
 
-Plugin that covers the non-admin part of Vexim web interface.
+A RoundCube plugin allowing users to manage non-administrative settings
+of Vexim, without the need to login again in its web interface.
 
 Possible future versions will be posted to:
 http://axel.sjostedt.no/misc/dev/roundcube/
 
-Author
-================
+## Author ##
+
 Written by Axel Sjostedt.
 
-Install
-================
+## Install ##
 
 * Place plugin folder into plugins directory of Roundcube
 * Enable the plugin by adding it to the Roundcube configuration file 
   Example: 
-     $rcmail_config['plugins'] = array("veximaccountadmin", "otherplugin")
+  
+        $rcmail_config['plugins'] = array("veximaccountadmin", "otherplugin")
 
-Configuration 
-================
+## Configuration ##
 
 * Copy config.inc.php.dist to config.inc.php in the plugin folder
   It is recommended to keep the dist file.
@@ -34,14 +31,13 @@ Configuration
 * Check that the cryptscheme and vexim_vacation_maxlength settings
   is the same as in your Vexim config 
 * If you use any of the Exim/Vexim customizations described on 
-  http://axel.sjostedt.no/misc/dev/vexim-customizations/ (disable saving
-  of passwords in clear text, move spam to folder support, shell spam 
-  parsing script), you should enable support for these in
-  VeximAccountAdmin config.
+  http://axel.sjostedt.no/misc/dev/vexim-customizations/ (move spam to
+  folder support, shell spam parsing script), you should enable support
+  for these in VeximAccountAdmin config.
 * Check that the Vexim URL is correct if you want to provide a Vexim link
   to admin users
 
-Other notes
-================
+## Other notes ##
+
 If you also want to update your Vexim login page with a Roundcube-like
 design, see http://axel.sjostedt.no/misc/dev/vexim-customizations/

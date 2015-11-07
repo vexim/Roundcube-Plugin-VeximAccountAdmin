@@ -114,9 +114,9 @@ class veximaccountadmin extends rcube_plugin
 		$sa_tag = get_input_value('sa_tag', RCUBE_INPUT_POST);
 		$sa_refuse = get_input_value('sa_refuse', RCUBE_INPUT_POST);
 	
-		$axel_on_movespam = get_input_value('axel_on_movespam', RCUBE_INPUT_POST);
-		if(!$axel_on_movespam)
-			$axel_on_movespam = 0;
+		$spam_drop = get_input_value('spam_drop', RCUBE_INPUT_POST);
+		if(!$spam_drop)
+			$spam_drop = 0;
 	
 		$on_vacation = get_input_value('on_vacation', RCUBE_INPUT_POST);
 		if(!$on_vacation)
@@ -147,7 +147,7 @@ class veximaccountadmin extends rcube_plugin
 		$prefs = $_POST['_headerblock_rule_field'];
 		$vals = $_POST['_headerblock_rule_value'];
 		 
-		$res = $this->_save($user,$on_avscan,$on_spamassassin,$sa_tag,$sa_refuse,$axel_on_movespam,$on_vacation,$vacation,$on_forward,$forward,$unseen,$maxmsgsize,$acts,$prefs,$vals);
+		$res = $this->_save($user,$on_avscan,$on_spamassassin,$sa_tag,$sa_refuse,$spam_drop,$on_vacation,$vacation,$on_forward,$forward,$unseen,$maxmsgsize,$acts,$prefs,$vals);
 		  
 		if (!$res) {
 			$rcmail->output->command('display_message', $this->gettext('savesuccess-config'), 'confirmation');
@@ -187,7 +187,7 @@ class veximaccountadmin extends rcube_plugin
 		$on_spamassassin	= $settings['on_spamassassin'];
 		$sa_tag				= $settings['sa_tag'];
 		$sa_refuse			= $settings['sa_refuse'];
-		$axel_on_movespam	= $settings['axel_on_movespam'];
+		$spam_drop			= $settings['spam_drop'];
 		$on_vacation		= $settings['on_vacation'];
 		$vacation 			= $settings['vacation'];
 		$on_forward			= $settings['on_forward'];
@@ -350,24 +350,20 @@ class veximaccountadmin extends rcube_plugin
 					$input_spamscorerefuse->show($sa_refuse),
 					'<br /><span class="vexim-explanation">' . $this->gettext('spamscorerefuseexplanation') . '. <span class="sameline">' . $this->gettext('domaindefault') . ': ' . $default_sa_refuse . '.</span></span>');		
 
-		if ($this->config['movespam_transporter']) {
-			
-			$spammoveexplanation = '<br /><span class="vexim-explanation">' . str_replace("%italicstart", "<i>", str_replace("%italicend", "</i>", $this->gettext('spammoveexplanation_part1')));
-			if ($this->config['parsefolders_script'])
-				$spammoveexplanation .= ' ' . $this->gettext('spammoveexplanation_part2');
-			$spammoveexplanation .= ' ' . $this->gettext('spammoveexplanation_part3');
+		$spammoveexplanation = '<br /><span class="vexim-explanation">' . str_replace("%italicstart", "<i>", str_replace("%italicend", "</i>", $this->gettext('spammoveexplanation_part1')));
+		if ($this->config['parsefolders_script'])
+			$spammoveexplanation .= ' ' . $this->gettext('spammoveexplanation_part2');
+		$spammoveexplanation .= ' ' . $this->gettext('spammoveexplanation_part3');
 
-			$field_id = 'axel_on_movespam';
-			$input_spammove = new html_checkbox(array('name' => 'axel_on_movespam', 'id' => $field_id, 'value' => 1));
-	
-			$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s%s</td></tr>\n",
-						$field_id,
-						rep_specialchars_output($this->gettext('spammove')),
-						$input_spammove->show($axel_on_movespam?1:0),
-						$spammoveexplanation);
+		$field_id = 'spam_drop';
+		$input_spammove = new html_checkbox(array('name' => 'spam_drop', 'id' => $field_id, 'value' => 1));
 
-		}
-	
+		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s%s</td></tr>\n",
+					$field_id,
+					rep_specialchars_output($this->gettext('spammove')),
+					$input_spammove->show($spam_drop?1:0),
+					$spammoveexplanation);
+		
 		$out .= '</table>';
 		
 		if ($this->config['parsefolders_script'] and $this->config['parsefolders_script_show_tip'])
@@ -597,7 +593,7 @@ class veximaccountadmin extends rcube_plugin
 		return $ret;  
 	}
 
-	private function _save($user,$on_avscan,$on_spamassassin,$sa_tag,$sa_refuse,$axel_on_movespam,$on_vacation,$vacation,$on_forward,$forward,$unseen,$maxmsgsize,$acts,$prefs,$vals)
+	private function _save($user,$on_avscan,$on_spamassassin,$sa_tag,$sa_refuse,$spam_drop,$on_vacation,$vacation,$on_forward,$forward,$unseen,$maxmsgsize,$acts,$prefs,$vals)
 	{
 		$rcmail = rcmail::get_instance();
 	
@@ -639,10 +635,7 @@ class veximaccountadmin extends rcube_plugin
 				}
 			}
 
-		if ($this->config['movespam_transporter']) {
-			$add_sql = '`axel_on_movespam` = ' . $this->db->quote($axel_on_movespam,'text') . ', ';
-		}
-	
+		$add_sql = '`spam_drop` = ' . $this->db->quote($spam_drop,'text') . ', ';
 		$sql = 'UPDATE `users` SET ' . $add_sql . '`on_avscan` = ' . $this->db->quote($on_avscan,'text') . ', `on_spamassassin` = ' . $this->db->quote($on_spamassassin,'text') . ', `sa_tag` = ' . $this->db->quote($sa_tag,'text') . ', `sa_refuse` = ' . $this->db->quote($sa_refuse,'text') . ', `on_vacation` = ' . $this->db->quote($on_vacation,'text') . ', `vacation` = ' . $this->db->quote($vacation,'text') . ', `on_forward` = ' . $this->db->quote($on_forward,'text') . ', `forward` = ' . $this->db->quote($forward,'text') . ', `unseen` = ' . $this->db->quote($unseen,'text') . ', `maxmsgsize` = ' . $this->db->quote($maxmsgsize,'text') . '  WHERE `username` = ' . $this->db->quote($user,'text') . ' LIMIT 1;';
 	
 		$config_error = 0;
