@@ -669,14 +669,12 @@ class veximaccountadmin extends rcube_plugin
 				$addtomessage .= '. ' . $this->gettext('saveerror-pass-mismatch');
 			} else {
 				
-				if ($this->config['crypted_password_hack'] == true) {
-					$crypted_password = $this->_crypt_password($newpwd);
-					$sql_pass = "UPDATE users SET crypt=" . $this->db->quote($crypted_password) . ", clear=" . $this->db->quote($crypted_password) . " WHERE username=" . $this->db->quote($user,'text') . " LIMIT 1";
-				} else {
-					$crypted_password = $this->_crypt_password($newpwd);
-					$sql_pass = "UPDATE users SET crypt=" . $this->db->quote($crypted_password) . ", clear=" . $this->db->quote($newpwd) . " WHERE username=" . $this->db->quote($user,'text') . " LIMIT 1";
-				}
-				
+				$crypted_password = $this->_crypt_password($newpwd);
+				$sql_pass =
+					"UPDATE users SET crypt=" . $this->db->quote($crypted_password) .
+					" WHERE username=" . $this->db->quote($user,'text') .
+					" LIMIT 1";
+
 				$res_pass = $this->db->query($sql_pass);
 				if ($err = $this->db->is_error()) {
 					$password_change_error = 2;
@@ -755,50 +753,53 @@ class veximaccountadmin extends rcube_plugin
 		return $address_table;
 	}
 
-	private function _crypt_password($clear, $salt = '')
-	{
-		// Function from Vexim.
+	/* crypt the plaintext password -- from Vexim */
+	private function _crypt_password($clear, $salt = '') 
+	{   
+		//global $cryptscheme;
 		$settings = $this->_get_configuration();
 		$cryptscheme = $this->config['vexim_cryptscheme'];
-
-		if ($cryptscheme == 'sha')
-		{
+	
+		if($cryptscheme === 'sha') {
 			$hash = sha1($clear);
 			$cryptedpass = '{SHA}' . base64_encode(pack('H*', $hash));
-		}
-		else
-		{
-			if ($cryptscheme == 'des')
-			{
-				if ($salt != '')
-				{
-					$salt = substr($salt, 0, 2);
-				}
-				else
-				{
-					$salt = substr(uniqid(), 0, 2);
-				}
-			}
-			else
-			if ($cryptscheme == 'md5')
-			{
-				if ($salt != '')
-				{
-					$salt = substr($salt, 0, 12);
-				}
-				else
-				{
-					$salt = '$1$'.substr(uniqid(), 0, 8).'$';
-				}
-			}
-			else
-			{
-				$salt = '';
-			}
+		} elseif ($cryptscheme === 'clear') {
+			$cryptedpass=$clear;
+		} else {
+			if(empty($salt)) {
+				switch($cryptscheme){
+					case 'des':
+						$salt = ''; 
+					break;
+					case 'md5':
+						$salt='$1$';
+					break;
+					case 'sha512':
+						$salt='$6$';
+					break;
+					case 'bcrypt':
+						$salt='$2a$10$';
+					break;
+					default:
+						if(preg_match('/\$[:digit:][:alnum:]?\$/', $cryptscheme)) {
+							$salt=$cryptscheme;
+						} else {
+							die(_('The value of $cryptscheme is invalid!'));
+						}   
+				} 
+				$salt.=$this->_get_random_bytes(CRYPT_SALT_LENGTH).'$';
+			}   
 			$cryptedpass = crypt($clear, $salt);
-		}
-
+		}   
 		return $cryptedpass;
 	}
-	
+
+	/* Generate pseudo random bytes -- from Vexim */
+	private function _get_random_bytes($count)
+	{   
+		$output = base64_encode(openssl_random_pseudo_bytes($count));
+        	$output = strtr(substr($output, 0, $count), '+', '.'); //base64 is longer, so must truncate the result
+        	return $output;
+    	}
+
 }
