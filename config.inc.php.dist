@@ -15,14 +15,6 @@ $veximaccountadmin_config['db_dsn'] = 'mysql://USERNAME:PASSWORD@SERVER/DATABASE
 // 'des', 'md5', 'sha', 'sha512', 'bcrypt')
 $veximaccountadmin_config['vexim_cryptscheme'] = 'sha512';
 
-/*
-	Support for the Exim/Vexim customizations described on
-	http://axel.sjostedt.no/misc/vexim/
-*/
-// Set this to true if you have added the parsefolders shell script
-$veximaccountadmin_config['parsefolders_script'] = false;
-$veximaccountadmin_config['parsefolders_script_show_tip'] = true; // Show notice about learnasspam folders
-
 // Show a link to Vexim if the user is registered as domain admin
 $veximaccountadmin_config['show_admin_link'] = true;
 // Vexim link URL, relative to Roundcube or external

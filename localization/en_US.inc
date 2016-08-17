@@ -21,14 +21,13 @@ $labels['spamscoretag']  = 'Spam tag score';
 $labels['spamscoretagexplanation']  = 'The score at which to tag potential spam but still deliver';
 $labels['spamscorerefuse']  = 'Spam refuse score';
 $labels['spamscorerefuseexplanation']  = 'The score at which to refuse potential spam mail and not deliver';
-$labels['spammove']  = 'Move tagged spam to subfolder';
+$labels['spamdrop']  = 'When above spam refuse score';
 $labels['domaindefault']  = 'Domain default';
 
 // %italicstart and %italicend will be replaced by <i> and </i>
-$labels['spammoveexplanation_part1']  = 'Tagged spam will automatically be put in IMAP folders %italicstartFilter-Spam-Low%italicend and %italicstartFilter-Spam-High%italicend, depending on spam probability.';
-$labels['spammoveexplanation_part2']  = 'Mail older than 90 or 30 days, respectively, will be auto-deleted.';
-$labels['spammoveexplanation_part3']  = 'If this setting is enabled when using POP insted of IMAP, no spam will be sent to your mail client at all.';
-$labels['spamtip']  = 'Tip: You can make the folder %italicstartLearnAsSpam%italicend and put spam mail that were not catched by the filter in it. (%italicstartLearnAsHam%italicend for the opposite.) Every midnight, the spam filter will parse these folders and learn by your examples, and then delete them.';
+$labels['spamdropexplanation']  = 'What to do with messages above spam refuse score. They can be moved into the %italicstartSpam%italicend folder automatically (%italicstartMove%italicend) or deleted (%italicstartDrop%italicend).';
+$labels['spamdropmove'] = 'Move';
+$labels['spamdropdrop'] = 'Drop';
 
 $labels['autoresponder']  = 'Autoresponder';
 $labels['autoresponderenabled']  = 'Enable autoresponder';

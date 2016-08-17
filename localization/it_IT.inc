@@ -21,14 +21,9 @@ $labels['spamscoretag']  = 'Punteggio di marcatura';
 $labels['spamscoretagexplanation']  = 'Il punteggio al quale marcare il potenziale spam, pur consegnando il messaggio';
 $labels['spamscorerefuse']  = 'Punteggio di rifiuto';
 $labels['spamscorerefuseexplanation']  = 'Il punteggio al quale il potenziale spam è rifiutato e non consegnato';
-$labels['spammove']  = 'Spostare spam in una cartella';
 $labels['domaindefault']  = 'Default del dominio';
 
 // %italicstart and %italicend will be replaced by <i> and </i>
-$labels['spammoveexplanation_part1']  = 'I messaggi marcati come spam sono automaticamente posti nelle cartelle IMAP %italicstartFilter-Spam-Low%italicend and %italicstartFilter-Spam-High%italicend, a seconda del punteggio ricevuto.';
-$labels['spammoveexplanation_part2']  = 'La posta più vecchia di 90 o 30 giorni, nell\'ordine, è cancellata automaticamente.';
-$labels['spammoveexplanation_part3']  = 'Se questa impostazione è attiva usando POP invece di IMAP, lo spam non è reperibile dai client.';
-$labels['spamtip']  = 'Consiglio: è possibile creare la cartella %italicstartLearnAsSpam%italicend dove mettere lo spam non rilevato dal filtro. (%italicstartLearnAsHam%italicend per i falsi positivi.) Ogni notte il filtro spam analizza queste cartelle, impara dai messaggi e li cancella.';
 
 $labels['autoresponder']  = 'Risposta automatica';
 $labels['autoresponderenabled']  = 'Riposta automatica attiva';

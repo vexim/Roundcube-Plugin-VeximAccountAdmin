@@ -341,24 +341,18 @@ class veximaccountadmin extends rcube_plugin
 					$input_spamscorerefuse->show($sa_refuse),
 					'<br /><span class="vexim-explanation">' . $this->gettext('spamscorerefuseexplanation') . '. <span class="sameline">' . $this->gettext('domaindefault') . ': ' . $default_sa_refuse . '.</span></span>');		
 
-		$spammoveexplanation = '<br /><span class="vexim-explanation">' . str_replace("%italicstart", "<i>", str_replace("%italicend", "</i>", $this->gettext('spammoveexplanation_part1')));
-		if ($this->config['parsefolders_script'])
-			$spammoveexplanation .= ' ' . $this->gettext('spammoveexplanation_part2');
-		$spammoveexplanation .= ' ' . $this->gettext('spammoveexplanation_part3');
-
 		$field_id = 'spam_drop';
-		$input_spammove = new html_checkbox(array('name' => 'spam_drop', 'id' => $field_id, 'value' => 1));
+		$input_spamdrop = new html_select(array('name' => 'spam_drop', 'id' => $field_id, 'class' => 'select'));
+		$input_spamdrop->add($this->gettext('spamdropmove'), 0);
+		$input_spamdrop->add($this->gettext('spamdropdrop'), 1);
 
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('spammove')),
-					$input_spammove->show($spam_drop?1:0),
-					$spammoveexplanation);
+					rep_specialchars_output($this->gettext('spamdrop')),
+					$input_spamdrop->show($spam_drop?1:0),
+					'<br /><span class="vexim-explanation">' . str_replace("%italicstart", "<i>", str_replace("%italicend", "</i>", $this->gettext('spamdropexplanation'))));
 		
 		$out .= '</table>';
-		
-		if ($this->config['parsefolders_script'] and $this->config['parsefolders_script_show_tip'])
-			$out .= '<p class="vexim-explanation">' . str_replace('%italicstart', '<i>', str_replace('%italicend', '</i>', $this->gettext('spamtip'))) . '</p>';
 		
 		$out .= '</div></fieldset>' . "\n\n";     
 	
@@ -629,8 +623,7 @@ class veximaccountadmin extends rcube_plugin
 				}
 			}
 
-		$add_sql = '`spam_drop` = ' . $this->db->quote($spam_drop,'text') . ', ';
-		$sql = 'UPDATE `users` SET ' . $add_sql . '`on_avscan` = ' . $this->db->quote($on_avscan,'text') . ', `on_spamassassin` = ' . $this->db->quote($on_spamassassin,'text') . ', `sa_tag` = ' . $this->db->quote($sa_tag,'text') . ', `sa_refuse` = ' . $this->db->quote($sa_refuse,'text') . ', `on_vacation` = ' . $this->db->quote($on_vacation,'text') . ', `vacation` = ' . $this->db->quote($vacation,'text') . ', `on_forward` = ' . $this->db->quote($on_forward,'text') . ', `forward` = ' . $this->db->quote($forward,'text') . ', `unseen` = ' . $this->db->quote($unseen,'text') . ', `maxmsgsize` = ' . $this->db->quote($maxmsgsize,'text') . '  WHERE `username` = ' . $this->db->quote($user,'text') . ' LIMIT 1;';
+		$sql = 'UPDATE `users` SET `on_avscan` = ' . $this->db->quote($on_avscan,'text') . ', `on_spamassassin` = ' . $this->db->quote($on_spamassassin,'text') . ', `sa_tag` = ' . $this->db->quote($sa_tag,'text') . ', `sa_refuse` = ' . $this->db->quote($sa_refuse,'text') . ', `on_vacation` = ' . $this->db->quote($on_vacation,'text') . ', `vacation` = ' . $this->db->quote($vacation,'text') . ', `on_forward` = ' . $this->db->quote($on_forward,'text') . ', `forward` = ' . $this->db->quote($forward,'text') . ', `unseen` = ' . $this->db->quote($unseen,'text') . ', `maxmsgsize` = ' . $this->db->quote($maxmsgsize,'text') . ', `spam_drop` = ' . $this->db->quote($spam_drop,'text') . ' WHERE `username` = ' . $this->db->quote($user,'text') . ' LIMIT 1;';
 	
 		$config_error = 0;
 		$res = $this->db->query($sql);
