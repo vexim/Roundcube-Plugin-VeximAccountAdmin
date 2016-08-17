@@ -28,7 +28,6 @@ Originally written by Axel Sjøstedt.
   will contain the password to your Vexim database
 * Open config.inc.php
 * Add your Vexim database info
-* Check that the cryptscheme and vexim_vacation_maxlength settings
-  is the same as in your Vexim config 
+* Check that the cryptscheme setting is the same as in your Vexim config 
 * Check that the Vexim URL is correct if you want to provide a Vexim link
   to admin users

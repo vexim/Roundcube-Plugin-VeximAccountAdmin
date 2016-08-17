@@ -62,10 +62,6 @@ $messages['headerblockdeleteall']  = 'Er du sikker på at du vil slette alle reg
 $messages['headerblockexists']  = 'Denne regelen finnes allerede';
 $messages['headerblockentervalue']  = 'Du må skrive inn en verdi til regelen';
 
-$messages['autoresponderlong']  = 'Din autosvarmelding overstiger maksimal tillatt lengde. Vennligst forkort teksten og trykk deretter lagre på nytt.';
-$messages['autoresponderlongnum']  = 'Antall tegn i din melding: ';
-$messages['autoresponderlongmax']  = 'Maksimalt antall tegn: ';
-
 $labels['introtext']  = 'Her kan du administrere dine kontoinnstillinger. Husk at disse innstillingene er knyttet til mailserveren, ikke bare webmailen. Endringer du gjør på denne siden vil derfor også påvirke andre mailprogrammer du bruker for denne adressen.';
 $labels['adminlinktext']  = 'Du er oppført som domeneadministrator. Fra denne siden kan du kun endre dine egne kontoinnstillinger, du kan ikke legge til/endre konti, videresendinger, lister osv. For å få slik administratortilgang må du logge på med %sVexim%s.';
 

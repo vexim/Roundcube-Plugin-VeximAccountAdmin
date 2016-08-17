@@ -62,10 +62,6 @@ $messages['headerblockdeleteall']  = 'Are you sure you want to delete all block 
 $messages['headerblockexists']  = 'This rule already exists';
 $messages['headerblockentervalue']  = 'You have to enter a value to the rule';
 
-$messages['autoresponderlong']  = 'Your autoresponder message exceeds the maximum length. Please make the message shorter and then click the save button again.';
-$messages['autoresponderlongnum']  = 'Number of characters in your message: ';
-$messages['autoresponderlongmax']  = 'Maximum number of characters: ';
-
 $labels['introtext']  = 'Here you can administrate your account settings. Remember that these settings are tied to the mail server itself, not only the webmail. Changes on this page will therefore also affect third-party mail clients you may use.';
 $labels['adminlinktext']  = 'You are registered as a domain administrator. On this page you can only edit your own settings. To get admin access for the whole domain (add/edit accounts, aliases, lists etc.) you will need to log in to %sVexim%s.';
 

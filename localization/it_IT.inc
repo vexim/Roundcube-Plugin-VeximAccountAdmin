@@ -62,10 +62,6 @@ $messages['headerblockdeleteall']  = 'Cancellare tutte le regole?';
 $messages['headerblockexists']  = 'Regola già presente';
 $messages['headerblockentervalue']  = 'Valore mancante';
 
-$messages['autoresponderlong']  = 'Il messaggio di risposta automatica è troppo lungo. Accorciarlo e salvare di nuovo.';
-$messages['autoresponderlongnum']  = 'Numero di caratteri nel messaggio: ';
-$messages['autoresponderlongmax']  = 'Numero massimo di caratteri: ';
-
 $labels['introtext']  = 'Qui si amministrano le impostazioni del suo account. Si ricordi che queste impostazioni sono legate alla sua casella in generale, e non soltanto alla webmail, pertanto ogni cambiamento in questa pagina riguarda anche eventuali altri client.';
 $labels['adminlinktext']  = 'Il suo account è amministrativo, ma in questa pagina è possibile modificare solo le sue impostazioni personali. Per accedere all\'amministrazione del dominio (aggiunta modifica account, alias, liste...) si autentichi su %sVexim%s.';
 
