@@ -6,11 +6,11 @@ A RoundCube plugin allowing users to manage non-administrative settings
 of Vexim, without the need to login again in its web interface.
 
 Possible future versions will be posted to:
-http://axel.sjostedt.no/misc/dev/roundcube/
+https://github.com/vexim/Roundcube-Plugin-VeximAccountAdmin/
 
 ## Author ##
 
-Written by Axel Sjostedt.
+Originally written by Axel Sjøstedt.
 
 ## Install ##
 
@@ -30,14 +30,5 @@ Written by Axel Sjostedt.
 * Add your Vexim database info
 * Check that the cryptscheme and vexim_vacation_maxlength settings
   is the same as in your Vexim config 
-* If you use any of the Exim/Vexim customizations described on 
-  http://axel.sjostedt.no/misc/dev/vexim-customizations/ (move spam to
-  folder support, shell spam parsing script), you should enable support
-  for these in VeximAccountAdmin config.
 * Check that the Vexim URL is correct if you want to provide a Vexim link
   to admin users
-
-## Other notes ##
-
-If you also want to update your Vexim login page with a Roundcube-like
-design, see http://axel.sjostedt.no/misc/dev/vexim-customizations/
