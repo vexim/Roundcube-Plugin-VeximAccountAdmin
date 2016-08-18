@@ -407,7 +407,7 @@ class veximaccountadmin extends rcube_plugin
 	
 	
 		 $field_id = 'forward';
-		$input_forwardingaddress = new html_inputfield(array('name' => 'forward', 'id' => $field_id, 'maxlength' => 255, 'class' => 'text-long'));
+		$input_forwardingaddress = new html_inputfield(array('name' => 'forward', 'id' => $field_id, 'maxlength' => 4096, 'class' => 'text-long'));
 	
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s</td></tr>\n",
 					$field_id,
@@ -510,8 +510,7 @@ class veximaccountadmin extends rcube_plugin
 		$out .= '<table class="vexim-settings" cellpadding="0" cellspacing="0">';
 		
 		$field_id = 'maxmsgsize';
-		$input_messagesize = new html_inputfield(array('name' => 'maxmsgsize', 'id' => $field_id, 'maxlength' => 3, 'size' => 4));
-	
+		$input_messagesize = new html_inputfield(array('name' => 'maxmsgsize', 'id' => $field_id, 'maxlength' => 8, 'size' => 6));
 		if ($default_maxmsgsize == 0)
 			$default_maxmsgsize = $this->gettext('unlimited');
 		else
