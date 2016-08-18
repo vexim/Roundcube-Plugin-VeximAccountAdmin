@@ -33,9 +33,6 @@ if (window.rcmail) {
 	} else if (input_newpasswd.value != input_confpasswd.value && input_newpasswd.value!='' && input_confpasswd.value!='') {
 		alert(rcmail.gettext('passwordinconsistency', 'veximaccountadmin'));
 		input_newpasswd.focus();	
-	} else if ( input_vacation.value.length > rcmail.env.vacation_maxlength) {
-		alert(rcmail.gettext('autoresponderlong', 'veximaccountadmin') + '\n\n' + rcmail.gettext('autoresponderlongnum', 'veximaccountadmin') + input_vacation.value.length + '\n' +rcmail.gettext('autoresponderlongmax', 'veximaccountadmin') + rcmail.env.vacation_maxlength);
-		input_vacation.focus();	
 	} else {
           rcmail.gui_objects.veximform.submit();
     }

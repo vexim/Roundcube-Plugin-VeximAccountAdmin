@@ -15,12 +15,6 @@ $veximaccountadmin_config['db_dsn'] = 'mysql://USERNAME:PASSWORD@SERVER/DATABASE
 // 'des', 'md5', 'sha', 'sha512', 'bcrypt')
 $veximaccountadmin_config['vexim_cryptscheme'] = 'sha512';
 
-// Maxlength of autoresponder message, defaults to 255 characters. You probably want to
-// extend this limit. If so, you must change the vacation field in users table in
-// vexim database structure from VARCHAR(255) to TEXT. Also set $max_vacation_length
-// in vexim config/variables.php to get the same limit there.
-$veximaccountadmin_config['vexim_vacation_maxlength'] = 255;
-
 /*
 	Support for the Exim/Vexim customizations described on
 	http://axel.sjostedt.no/misc/vexim/
@@ -33,5 +27,3 @@ $veximaccountadmin_config['parsefolders_script_show_tip'] = true; // Show notice
 $veximaccountadmin_config['show_admin_link'] = true;
 // Vexim link URL, relative to Roundcube or external
 $veximaccountadmin_config['vexim_url'] = '../vexim/';
-
-?>

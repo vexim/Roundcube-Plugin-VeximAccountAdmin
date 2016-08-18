@@ -124,12 +124,6 @@ class veximaccountadmin extends rcube_plugin
 	
 		$vacation = get_input_value('vacation', RCUBE_INPUT_POST);
 		
-		// In case someone bypass the javascript maxlength, we make vacation message
-		// shorter if above treshold
-		if (strlen($vacation) > $this->config['vexim_vacation_maxlength']) {
-			$vacation = substr($vacation, 0, $this->config['vexim_vacation_maxlength']);
-		}
-		
 		$on_forward = get_input_value('on_forward', RCUBE_INPUT_POST);
 		if(!$on_forward)
 			$on_forward = 0;
@@ -204,9 +198,6 @@ class veximaccountadmin extends rcube_plugin
 		$default_maxmsgsize	= $domain_settings['maxmsgsize'];
 		$active_domain		= $domain_settings['domain'];
 		
-		$rcmail->output->set_env('vacation_maxlength', $this->config['vexim_vacation_maxlength']);
-		
-	
 		$out .= '<p class="introtext">' . $this->gettext('introtext') . '</p>' . "\n";
 
 
@@ -571,6 +562,8 @@ class veximaccountadmin extends rcube_plugin
 		   return $err;
 		}
 		$ret = $this->db->fetch_assoc($res);
+
+		$ret['vacation'] = quoted_printable_decode($ret['vacation']);
 	
 		return $ret;  
 	}
@@ -602,6 +595,8 @@ class veximaccountadmin extends rcube_plugin
 		$settings = $this->_get_configuration();
 		$user_id			= $settings['user_id'];
 		$domain_id			= $settings['domain_id'];
+
+		$vacation = quoted_printable_encode($vacation);
 	
 			foreach ($acts as $idx => $act){
 				if ($act == "DELETE") {
