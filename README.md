@@ -8,10 +8,6 @@ of Vexim, without the need to login again in its web interface.
 Possible future versions will be posted to:
 https://github.com/vexim/Roundcube-Plugin-VeximAccountAdmin/
 
-## Author ##
-
-Originally written by Axel Sjøstedt.
-
 ## Install ##
 
 * Place plugin folder into plugins directory of Roundcube
@@ -31,3 +27,7 @@ Originally written by Axel Sjøstedt.
 * Check that the cryptscheme setting is the same as in your Vexim config 
 * Check that the Vexim URL is correct if you want to provide a Vexim link
   to admin users
+
+## Credits ##
+
+This plugin was originally written by [Axel Sjøstedt](http://axel.sjostedt.no/), and has since been improved by several contributors on GitHub.
