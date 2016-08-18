@@ -21,14 +21,9 @@ $labels['spamscoretag']  = 'Spamverdi for markering';
 $labels['spamscoretagexplanation']  = 'Meldinger med denne spamverdien eller høyere vil bli markert som spam';
 $labels['spamscorerefuse']  = 'Spamverdi for sletting';
 $labels['spamscorerefuseexplanation']  = 'Meldinger med denne spamverdien eller høyere vil bli automatisk slettet';
-$labels['spammove']  = 'Flytt markert spam til undermapper';
 $labels['domaindefault']  = 'Standardinnstilling';
 
 // %italicstart and %italicend will be replaced by <i> and </i>
-$labels['spammoveexplanation_part1']  = 'Markert spam vil automatisk bli flyttet til IMAP-mappene %italicstartFilter-Spam-Low%italicend og %italicstartFilter-Spam-High%italicend, avhengig av hvor høy sannsynligheten er for at meldingen er spam.';
-$labels['spammoveexplanation_part2']  = 'Meldinger eldre enn hhv. 90 og 30 dager vil bli automatisk slettet.';
-$labels['spammoveexplanation_part3']  = 'Hvis du bruker POP istedenfor IMAP mens denne innstillingen skrudd på, vil ikke spam bli levert til ditt mailprogram i det hele tatt.';
-$labels['spamtip']  = 'Tips: Du kan lage mappen %italicstartLearnAsSpam%italicend og flytte spam som ikke ble fanget opp av filteret til denne mappen. (Og i motsatt fall %italicstartLearnAsHam%italicend for meldinger som er feilaktig markert som spam.) Spamfilteret vil gå gjennom disse mappene ved midnatt og lære av meldingene, før mappene tømmes.';
 
 $labels['autoresponder']  = 'Autosvar';
 $labels['autoresponderenabled']  = 'Aktiver autosvar';

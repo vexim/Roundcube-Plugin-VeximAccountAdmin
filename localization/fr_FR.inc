@@ -23,14 +23,9 @@ $labels['spamscoretag']  = 'Valeur de marquage du spam';
 $labels['spamscoretagexplanation']  = 'le message obtenant cette valeur sera marqué come spam potentiel mais délivré tout de même';
 $labels['spamscorerefuse']  = 'Valeur de refus du spam';
 $labels['spamscorerefuseexplanation']  = 'le message obtenant cette valeur sera refusé et ne sera pas délivré';
-$labels['spammove']  = 'déplacer le message marqué comme spam vers un sous-dossier';
 $labels['domaindefault']  = 'réglages par défaut';
 
 // %italicstart et %italicend seront remplacés par <i> and </i>
-$labels['spammoveexplanation_part1']  = 'les messages marqués comme spam seront automatiquement déplacés dans le dossier IMAP %italicstartFilter-Spam-Low%italicend and %italicstartFilter-Spam-High%italicend, selon la probabilité que le message soit effectivement un spam.';
-$labels['spammoveexplanation_part2']  = 'les messages vieux de 90 or 30 jours, respectivement, seront effacés automatiquement.';
-$labels['spammoveexplanation_part3']  = 'si ce paramètre est activé lorsque le protocole POP est utilisé à la place du protocole IMAP, aucun spam ne sera envoyé à votre client de messagerie.';
-$labels['spamtip']  = 'astuce: Vous pouvez créer le dossier %italicstartLearnAsSpam%italicend et y déplacer les spams qui n\'auraient pas été interceptés par le filtre. (%italicstartLearnAsHam%italicend pour le contraire.) chaque soir à minuit, le filtre anti-spam va analyser ces dossiers et apprendre grâce à ces exemples, avant de les effacer.';
 
 $labels['autoresponder']  = 'Répondeur Automatique';
 $labels['autoresponderenabled']  = 'Activer le répondeur automatique';
