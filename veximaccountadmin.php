@@ -562,6 +562,8 @@ class veximaccountadmin extends rcube_plugin
 		   return $err;
 		}
 		$ret = $this->db->fetch_assoc($res);
+
+		$ret['vacation'] = quoted_printable_decode($ret['vacation']);
 	
 		return $ret;  
 	}
@@ -593,6 +595,8 @@ class veximaccountadmin extends rcube_plugin
 		$settings = $this->_get_configuration();
 		$user_id			= $settings['user_id'];
 		$domain_id			= $settings['domain_id'];
+
+		$vacation = quoted_printable_encode($vacation);
 	
 			foreach ($acts as $idx => $act){
 				if ($act == "DELETE") {
