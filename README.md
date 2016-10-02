@@ -11,7 +11,7 @@ https://github.com/vexim/Roundcube-Plugin-VeximAccountAdmin/
 ## Install ##
 
 * Place plugin folder into plugins directory of Roundcube
-* Set folder to `veximaccountadmin`
+* Rename the folder to `veximaccountadmin`
 * Enable the plugin by adding it to the Roundcube configuration file 
   Example: 
   
