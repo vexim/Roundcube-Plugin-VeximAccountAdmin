@@ -136,10 +136,9 @@ class veximaccountadmin extends rcube_plugin
 		
 		$maxmsgsize = get_input_value('maxmsgsize', RCUBE_INPUT_POST);
 	
-		// Using $_POST here bacause get_input_value seems to not work with arrays
-		$acts = $_POST['_headerblock_rule_act'];
-		$prefs = $_POST['_headerblock_rule_field'];
-		$vals = $_POST['_headerblock_rule_value'];
+		$acts = get_input_value('_headerblock_rule_act', RCUBE_INPUT_POST);
+		$prefs = get_input_value('_headerblock_rule_field', RCUBE_INPUT_POST);
+		$vals = get_input_value('_headerblock_rule_value', RCUBE_INPUT_POST);
 		 
 		$res = $this->_save($user,$on_avscan,$on_spamassassin,$sa_tag,$sa_refuse,$spam_drop,$on_vacation,$vacation,$on_forward,$forward,$unseen,$maxmsgsize,$acts,$prefs,$vals);
 		  
