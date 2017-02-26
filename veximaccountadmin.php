@@ -218,7 +218,7 @@ class veximaccountadmin extends rcube_plugin
 	
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('passwordcurrent')),
+					rcube_utils::rep_specialchars_output($this->gettext('passwordcurrent')),
 					$input_passwordcurrent->show(),
 					'');
 	
@@ -227,7 +227,7 @@ class veximaccountadmin extends rcube_plugin
 	
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('passwordnew')),
+					rcube_utils::rep_specialchars_output($this->gettext('passwordnew')),
 					$input_passwordnew->show(),
 					'');
 	
@@ -236,7 +236,7 @@ class veximaccountadmin extends rcube_plugin
 	
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('passwordconfirm')),
+					rcube_utils::rep_specialchars_output($this->gettext('passwordconfirm')),
 					$input_passwordconf->show(),
 					'');
 	
@@ -257,7 +257,7 @@ class veximaccountadmin extends rcube_plugin
 	
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('virusenabled')),
+					rcube_utils::rep_specialchars_output($this->gettext('virusenabled')),
 					$input_virusenabled->show($on_avscan?1:0), 
 					'<br /><span class="vexim-explanation">' . $this->gettext('virusenabledexplanation') . '</span>');
 	
@@ -267,7 +267,7 @@ class veximaccountadmin extends rcube_plugin
 	
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('spamenabled')),
+					rcube_utils::rep_specialchars_output($this->gettext('spamenabled')),
 					$input_spamenabled->show($on_spamassassin?1:0),
 					'<br /><span class="vexim-explanation">' . $this->gettext('spamenabledexplanation') . '</span>');
 
@@ -297,7 +297,7 @@ class veximaccountadmin extends rcube_plugin
 
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('spamscoretag')),
+					rcube_utils::rep_specialchars_output($this->gettext('spamscoretag')),
 					$input_spamscoretag->show($sa_tag),
 					'<br /><span class="vexim-explanation">' . $this->gettext('spamscoretagexplanation') . '. <span class="sameline">' . $this->gettext('domaindefault') . ': ' . $default_sa_tag . '.</span></span>');		
 
@@ -336,7 +336,7 @@ class veximaccountadmin extends rcube_plugin
 		
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('spamscorerefuse')),
+					rcube_utils::rep_specialchars_output($this->gettext('spamscorerefuse')),
 					$input_spamscorerefuse->show($sa_refuse),
 					'<br /><span class="vexim-explanation">' . $this->gettext('spamscorerefuseexplanation') . '. <span class="sameline">' . $this->gettext('domaindefault') . ': ' . $default_sa_refuse . '.</span></span>');		
 
@@ -347,7 +347,7 @@ class veximaccountadmin extends rcube_plugin
 
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('spamdrop')),
+					rcube_utils::rep_specialchars_output($this->gettext('spamdrop')),
 					$input_spamdrop->show($spam_drop?1:0),
 					'<br /><span class="vexim-explanation">' . str_replace("%italicstart", "<i>", str_replace("%italicend", "</i>", $this->gettext('spamdropexplanation'))));
 		
@@ -366,7 +366,7 @@ class veximaccountadmin extends rcube_plugin
 	
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('autoresponderenabled')),
+					rcube_utils::rep_specialchars_output($this->gettext('autoresponderenabled')),
 					$input_autoresponderenabled->show($on_vacation?1:0),
 					'');
 	
@@ -376,7 +376,7 @@ class veximaccountadmin extends rcube_plugin
 	
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('autorespondermessage')),
+					rcube_utils::rep_specialchars_output($this->gettext('autorespondermessage')),
 					$input_autorespondermessage->show($vacation),
 					'<br /><span class="vexim-explanation">' . $this->gettext('autorespondermessageexplanation') . '</span>');
 					
@@ -395,7 +395,7 @@ class veximaccountadmin extends rcube_plugin
 	
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('forwardingenabled')),
+					rcube_utils::rep_specialchars_output($this->gettext('forwardingenabled')),
 					$input_forwardingenabled->show($on_forward?1:0));                                                
 	
 	
@@ -404,7 +404,7 @@ class veximaccountadmin extends rcube_plugin
 	
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('forwardingaddress')),
+					rcube_utils::rep_specialchars_output($this->gettext('forwardingaddress')),
 					$input_forwardingaddress->show($forward));
 	
 		 $field_id = 'unseen';
@@ -412,7 +412,7 @@ class veximaccountadmin extends rcube_plugin
 	
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('forwardinglocal')),
+					rcube_utils::rep_specialchars_output($this->gettext('forwardinglocal')),
 					$input_forwardinglocal->show($unseen?1:0));                                           
 
 		$out .= '</table>';
@@ -474,7 +474,7 @@ class veximaccountadmin extends rcube_plugin
 			$norules = 'display: none;';
 
 		$address_table->set_row_attribs(array('style' => $norules));
-		$address_table->add(array('colspan' => '3'), rep_specialchars_output($this->gettext('noaddressrules')));
+		$address_table->add(array('colspan' => '3'), rcube_utils::rep_specialchars_output($this->gettext('noaddressrules')));
 		$address_table->add_row();
 
 		$this->api->output->set_env('address_rule_count', $this->db->num_rows());
@@ -511,7 +511,7 @@ class veximaccountadmin extends rcube_plugin
 	
 		$out .= sprintf("<tr><th><label for=\"%s\">%s</label>:</th><td>%s%s</td></tr>\n",
 					$field_id,
-					rep_specialchars_output($this->gettext('messagesize')),
+					rcube_utils::rep_specialchars_output($this->gettext('messagesize')),
 					$input_messagesize->show($maxmsgsize),
 					'<br /><span class="vexim-explanation">' . str_replace('%d', $active_domain, str_replace('%m', $default_maxmsgsize, $this->gettext('messagesizeexplanation'))) . '</span>');
 	
@@ -711,16 +711,16 @@ class veximaccountadmin extends rcube_plugin
 
 		switch ($field) {
 			case "From":
-				$fieldtxt = rep_specialchars_output($this->gettext('headerfrom'));
+				$fieldtxt = rcube_utils::rep_specialchars_output($this->gettext('headerfrom'));
 				break;
 			case "To":
-				$fieldtxt = rep_specialchars_output($this->gettext('headerto'));
+				$fieldtxt = rcube_utils::rep_specialchars_output($this->gettext('headerto'));
 				break;
 			case "Subject":
-				$fieldtxt = rep_specialchars_output($this->gettext('headersubject'));
+				$fieldtxt = rcube_utils::rep_specialchars_output($this->gettext('headersubject'));
 				break;
 			case "X-Mailer":
-				$fieldtxt = rep_specialchars_output($this->gettext('headerxmailer'));
+				$fieldtxt = rcube_utils::rep_specialchars_output($this->gettext('headerxmailer'));
 				break;
 		}
 
