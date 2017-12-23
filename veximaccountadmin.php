@@ -5,6 +5,11 @@
  *
  * Plugin that covers the non-admin part of Vexim web interface.
  *
+ * Moved to vexim-repository
+ * @url https://github.com/vexim/Roundcube-Plugin-VeximAccountAdmin
+ * @date 2017-12-23
+ * @licence GNU GPL 2.0
+ * History:
  * @date 2009-11-12
  * @author Axel Sjostedt
  * @url http://axel.sjostedt.no/misc/dev/roundcube/
@@ -103,42 +108,42 @@ class veximaccountadmin extends rcube_plugin
 		$user = $rcmail->user->data['username'];
 	
 	
-		$on_avscan = get_input_value('on_avscan', RCUBE_INPUT_POST);
+		$on_avscan = rcube_utils::get_input_value('on_avscan', rcube_utils::INPUT_POST);
 		if(!$on_avscan)
 			$on_avscan = 0;
 		  
-		$on_spamassassin = get_input_value('on_spamassassin', RCUBE_INPUT_POST);
+		$on_spamassassin = rcube_utils::get_input_value('on_spamassassin', rcube_utils::INPUT_POST);
 		if(!$on_spamassassin)
 			$on_spamassassin = 0;
 	
-		$sa_tag = get_input_value('sa_tag', RCUBE_INPUT_POST);
-		$sa_refuse = get_input_value('sa_refuse', RCUBE_INPUT_POST);
+		$sa_tag = rcube_utils::get_input_value('sa_tag', rcube_utils::INPUT_POST);
+		$sa_refuse = rcube_utils::get_input_value('sa_refuse', rcube_utils::INPUT_POST);
 	
-		$spam_drop = get_input_value('spam_drop', RCUBE_INPUT_POST);
+		$spam_drop = rcube_utils::get_input_value('spam_drop', rcube_utils::INPUT_POST);
 		if(!$spam_drop)
 			$spam_drop = 0;
 	
-		$on_vacation = get_input_value('on_vacation', RCUBE_INPUT_POST);
+		$on_vacation = rcube_utils::get_input_value('on_vacation', rcube_utils::INPUT_POST);
 		if(!$on_vacation)
 			$on_vacation = 0;
 	
-		$vacation = get_input_value('vacation', RCUBE_INPUT_POST);
+		$vacation = rcube_utils::get_input_value('vacation', rcube_utils::INPUT_POST);
 		
-		$on_forward = get_input_value('on_forward', RCUBE_INPUT_POST);
+		$on_forward = rcube_utils::get_input_value('on_forward', rcube_utils::INPUT_POST);
 		if(!$on_forward)
 			$on_forward = 0;
 		  
-		$forward = get_input_value('forward', RCUBE_INPUT_POST);
+		$forward = rcube_utils::get_input_value('forward', rcube_utils::INPUT_POST);
 		
-		$unseen = get_input_value('unseen', RCUBE_INPUT_POST);
+		$unseen = rcube_utils::get_input_value('unseen', rcube_utils::INPUT_POST);
 		if(!$unseen)
 			$unseen = 0;
 		
-		$maxmsgsize = get_input_value('maxmsgsize', RCUBE_INPUT_POST);
+		$maxmsgsize = rcube_utils::get_input_value('maxmsgsize', rcube_utils::INPUT_POST);
 	
-		$acts = get_input_value('_headerblock_rule_act', RCUBE_INPUT_POST);
-		$prefs = get_input_value('_headerblock_rule_field', RCUBE_INPUT_POST);
-		$vals = get_input_value('_headerblock_rule_value', RCUBE_INPUT_POST);
+		$acts = rcube_utils::get_input_value('_headerblock_rule_act', rcube_utils::INPUT_POST);
+		$prefs = rcube_utils::get_input_value('_headerblock_rule_field', rcube_utils::INPUT_POST);
+		$vals = rcube_utils::get_input_value('_headerblock_rule_value', rcube_utils::INPUT_POST);
 		 
 		$res = $this->_save($user,$on_avscan,$on_spamassassin,$sa_tag,$sa_refuse,$spam_drop,$on_vacation,$vacation,$on_forward,$forward,$unseen,$maxmsgsize,$acts,$prefs,$vals);
 		  
@@ -148,7 +153,7 @@ class veximaccountadmin extends rcube_plugin
 			$rcmail->output->command('display_message', $res, 'error');
 		}
 		
-		rcmail_overwrite_action('plugin.veximaccountadmin');
+		$rcmail->overwrite_action('plugin.veximaccountadmin');
 	
 		$this->veximaccountadmin_init();
 	}
@@ -631,8 +636,8 @@ class veximaccountadmin extends rcube_plugin
 		}
 		$res = $this->db->affected_rows($res);
 	
-		$curpwd = get_input_value('_curpasswd', RCUBE_INPUT_POST);
-		$newpwd = get_input_value('_newpasswd', RCUBE_INPUT_POST);
+		$curpwd = rcube_utils::get_input_value('_curpasswd', rcube_utils::INPUT_POST);
+		$newpwd = rcube_utils::get_input_value('_newpasswd', rcube_utils::INPUT_POST);
 		  
 		if ($curpwd != '' and $newpwd != '') {
 			  
