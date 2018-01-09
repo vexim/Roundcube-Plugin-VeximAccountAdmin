@@ -79,7 +79,7 @@ input.text-long {
 
 /* ------------------------ Header block styles ------------------------ */
 
-#headerblock-rules-cont
+#headerblock-rules-cont, #headerwhite-rules-cont
 {
   border: 1px solid #999999;
   background-color: #F9F9F9;
@@ -88,7 +88,7 @@ input.text-long {
   width: 520px;
 }
 
-body.headerblock-rules-table
+body.headerblock-rules-table, body.headerwhite-rules-table
 {
   margin: 0px;
   background-color: #F9F9F9;
@@ -108,16 +108,20 @@ html>body*#headerblock-rules-table[id$="headerblock-rules-table"]:not([class="no
 /**/
 
 /* safari hack \*/
+html>body*#headerwhite-rules-table[id$="headerwhite-rules-table"]:not([class="none"]) { table-layout: auto; }
+/**/
+
+/* safari hack \*/
 html>body*#spam-langs-table[id$="spam-langs-table"]:not([class="none"]) { table-layout: auto; }
 /**/
 
-#headerblock-rules-table td.field, #headerblock-rules-table td.email
+#headerblock-rules-table td.field, #headerblock-rules-table td.email, #headerwhite-rules-table td.field, #headerwhite-rules-table td.email
 {
   text-align: left;
   vertical-align: middle;
 }
 
-#headerblock-rules-table td.control
+#headerblock-rules-table td.control, #headerwhite-rules-table td.control
 {
   text-align: right;
   vertical-align: middle;

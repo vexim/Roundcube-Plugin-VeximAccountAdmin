@@ -63,6 +63,16 @@ $messages['headerblockdeleteall']  = 'Êtes-vous sûr de vouloir supprimer toute
 $messages['headerblockexists']  = 'Cette règle existe déjà';
 $messages['headerblockexistsentervalue']  = 'Vous devez préciser une valeur pour cette règle';
 
+$labels['whitebyheader']  = 'Pass by header';
+$labels['whitebyheaderexplanation']  = 'The rules below will be checked against the mail header fields, and mail that matches will overwrite any blocking rule. Note that the match must be excact, not partial.';
+$labels['whiteaddrule']  = 'Add pass rule';
+$labels['nowhiteaddressrules']  = 'No pass rules';
+
+$messages['headerwhitedelete']  = 'Are you sure you want to delete this rule?';
+$messages['headerwhitedeleteall']  = 'Are you sure you want to delete all pass rules?';
+$messages['headerwhiteexists']  = 'This rule already exists';
+$messages['headerwhiteentervalue']  = 'You have to enter a value to the rule';
+
 $labels['introtext']  = 'Ici, vous pouvez administrer vos paramètres de compte. Attention, ces paramètres sont liés au serveur de mail, pas seulement au webmail. De ce fait, les modifications effectuées sur cette page s\'appliqueront également à tout client de messagerie tiers avec lequel vous récupérez vos messages sur votre ordinateur.';
 $labels['adminlinktext']  = 'Vous êtes enregistré en tant qu\'administrateur de domaine. Sur cette page, vous pouvez seulement éditer vos propres paramètres. Pour obtenir un accès administrateur pour le domaine entier (ajout/édition de comptes, alias, listes etc.) vous devez vous identifier sur %sVexim%s.';
 
