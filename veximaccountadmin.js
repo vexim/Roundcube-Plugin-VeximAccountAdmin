@@ -173,7 +173,7 @@ if (window.rcmail) {
 															.appendChild(newNode);
 
 												newNode.style.display = "";
-												newNode.cells[0].className = input_headerblockrule.options[selrule].value;
+												//newNode.cells[0].className = input_headerblockrule.options[selrule].value;
 												newNode.cells[0].innerHTML = input_headerblockrule.options[selrule].text;
 												newNode.cells[1].innerHTML = input_headerblockvalue.value;
 												actions[newNode.rowIndex - 2].value = "INSERT";

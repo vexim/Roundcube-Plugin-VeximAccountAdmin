@@ -140,22 +140,20 @@ class veximaccountadmin extends rcube_plugin {
 		
 		$maxmsgsize = rcube_utils::get_input_value ( 'maxmsgsize', rcube_utils::INPUT_POST );
 		
-		$acts = rcube_utils::get_input_value ( '_headerblock_rule_act', rcube_utils::INPUT_POST );
-		$prefs = rcube_utils::get_input_value ( '_headerblock_rule_field', rcube_utils::INPUT_POST );
-		$vals = rcube_utils::get_input_value ( '_headerblock_rule_value', rcube_utils::INPUT_POST );
+		$acts = rcube_utils::get_input_value ( '_headerblock_rule_act[]', rcube_utils::INPUT_POST );
+		$prefs = rcube_utils::get_input_value ( '_headerblock_rule_field[]', rcube_utils::INPUT_POST );
+		$vals = rcube_utils::get_input_value ( '_headerblock_rule_value[]', rcube_utils::INPUT_POST );
 		
-		$actswhite = rcube_utils::get_input_value ( '_headerwhite_rule_act', rcube_utils::INPUT_POST );
-		$prefswhite = rcube_utils::get_input_value ( '_headerwhite_rule_field', rcube_utils::INPUT_POST );
-		$valswhite = rcube_utils::get_input_value ( '_headerwhite_rule_value', rcube_utils::INPUT_POST );
+		$actswhite = rcube_utils::get_input_value ( '_headerwhite_rule_act[]', rcube_utils::INPUT_POST );
+		$prefswhite = rcube_utils::get_input_value ( '_headerwhite_rule_field[]', rcube_utils::INPUT_POST );
+		$valswhite = rcube_utils::get_input_value ( '_headerwhite_rule_value[]', rcube_utils::INPUT_POST );	
 		
-		$res = $this->_save ( $user, $on_avscan, $on_spamassassin, $sa_tag, $sa_refuse, $spam_drop, 
-				$on_vacation, $vacation, $on_forward, $forward, $unseen, $maxmsgsize, 
-				$acts, $prefs, $vals, $actswhite, $prefswhite, $valswhite );
+		$res = $this->_save ( $user, $on_avscan, $on_spamassassin, $sa_tag, $sa_refuse, $spam_drop, $on_vacation, $vacation, $on_forward, $forward, $unseen, $maxmsgsize, $acts, $prefs, $vals, $actswhite, $prefswhite, $valswhite );
 		
 		if (! $res) {
 			$rcmail->output->command ( 'display_message', $this->gettext ( 'savesuccess-config' ), 'confirmation' );
 		} else {
-			$rcmail->output->command ( 'display_message', $res, 'error' );
+			$rcmail->output->command ( 'display_message', $res . ':' . print_r($acts, TRUE) . ':' . print_r($prefs, TRUE) . ':' . print_r($vals, TRUE), 'error' );
 		}
 		
 		$rcmail->overwrite_action ( 'plugin.veximaccountadmin' );
@@ -167,11 +165,7 @@ class veximaccountadmin extends rcube_plugin {
 		$this->_load_config ();
 		
 		// add labels to client - to be used in JS alerts
-		$rcmail->output->add_label ( 'veximaccountadmin.enterallpassfields', 'veximaccountadmin.passwordinconsistency',
-				'veximaccountadmin.autoresponderlong', 'veximaccountadmin.autoresponderlongnum', 'veximaccountadmin.autoresponderlongmax', 
-				'veximaccountadmin.headerblockdelete', 'veximaccountadmin.headerblockdeleteall', 'veximaccountadmin.headerblockexists', 'veximaccountadmin.headerblockentervalue',
-				'veximaccountadmin.headerwhitedelete', 'veximaccountadmin.headerwhitedeleteall', 'veximaccountadmin.headerwhiteexists', 'veximaccountadmin.headerwhiteentervalue'
-				);
+		$rcmail->output->add_label ( 'veximaccountadmin.enterallpassfields', 'veximaccountadmin.passwordinconsistency', 'veximaccountadmin.autoresponderlong', 'veximaccountadmin.autoresponderlongnum', 'veximaccountadmin.autoresponderlongmax', 'veximaccountadmin.headerblockdelete', 'veximaccountadmin.headerblockdeleteall', 'veximaccountadmin.headerblockexists', 'veximaccountadmin.headerblockentervalue', 'veximaccountadmin.headerwhitedelete', 'veximaccountadmin.headerwhitedeleteall', 'veximaccountadmin.headerwhiteexists', 'veximaccountadmin.headerwhiteentervalue' );
 		
 		$rcmail->output->set_env ( 'product_name', $rcmail->config->get ( 'product_name' ) );
 		
@@ -491,7 +485,8 @@ class veximaccountadmin extends rcube_plugin {
 				'width' => '40px' 
 		), '&nbsp;' );
 		
-		$this->_address_row ( $address_table, null, null, $attrib );
+		// 1st element in address table is a template that can be cloned
+		$this->_address_row ( $address_table, null, null );
 		
 		// Get the header rules from DB. Should probably be put in a function.
 		$this->_load_config ();
@@ -512,7 +507,7 @@ class veximaccountadmin extends rcube_plugin {
 		$address_table->add ( array (
 				'colspan' => '3' 
 		), rcube_utils::rep_specialchars_output ( $this->gettext ( 'noaddressrules' ) ) );
-		$address_table->add_row ();
+		// $address_table->add_row ();
 		
 		$this->api->output->set_env ( 'address_rule_count', $this->db->num_rows () );
 		
@@ -520,7 +515,7 @@ class veximaccountadmin extends rcube_plugin {
 			$field = $sql_arr ['blockhdr'];
 			$value = $sql_arr ['blockval'];
 			
-			$this->_address_row ( $address_table, $field, $value, $attrib );
+			$this->_address_row ( $address_table, $field, $value );
 		}
 		
 		$table->add ( array (
@@ -536,7 +531,7 @@ class veximaccountadmin extends rcube_plugin {
 		$out .= '</div></fieldset>' . "\n\n";
 		
 		// =====================================================================================================
-		// Header passes 
+		// Header passes
 		
 		$out .= '<fieldset><legend>' . $this->gettext ( 'whitebyheader' ) . '</legend>' . "\n";
 		
@@ -605,11 +600,12 @@ class veximaccountadmin extends rcube_plugin {
 				'width' => '40px' 
 		), '&nbsp;' );
 		
-		$this->_whiteaddress_row ( $address_table, null, null, $attrib );
+		// 1st element in address table is a template that can be cloned
+		$this->_whiteaddress_row ( $address_table, null, null );
 		
 		// Get the header rules from DB. Should probably be put in a function.
-		$this->_load_config ();
-		$this->_db_connect ( 'r' );
+		// $this->_load_config ();
+		// $this->_db_connect ( 'r' );
 		
 		$sql_result = $this->db->query ( "SELECT whitehdr, whiteval
 						FROM   whitelists
@@ -626,9 +622,9 @@ class veximaccountadmin extends rcube_plugin {
 				'style' => $norules 
 		) );
 		$address_table->add ( array (
-				'colspan' => '3'
+				'colspan' => '3' 
 		), rcube_utils::rep_specialchars_output ( $this->gettext ( 'nowhiteaddressrules' ) ) );
-		$address_table->add_row ();
+		//$address_table->add_row ();
 		
 		$this->api->output->set_env ( 'address_rule_count', $this->db->num_rows () );
 		
@@ -636,7 +632,7 @@ class veximaccountadmin extends rcube_plugin {
 			$field = $sql_arr ['whitehdr'];
 			$value = $sql_arr ['whiteval'];
 			
-			$this->_whiteaddress_row ( $address_table, $field, $value, $attrib );
+			$this->_whiteaddress_row ( $address_table, $field, $value );
 		}
 		
 		$table->add ( array (
@@ -763,7 +759,7 @@ class veximaccountadmin extends rcube_plugin {
 			} elseif ($act == "INSERT") {
 				$result = false;
 				
-				$this->db->query ( "INSERT INTO blocklists
+				$this->db->query ( "INSERT INTO blocklistxs
 					   (user_id, domain_id, blockhdr,blockval,color)
 					   VALUES ('" . $user_id . "', '" . $domain_id . "', '" . $prefs [$idx] . "', '" . $vals [$idx] . "', 'black')" );
 				
@@ -790,7 +786,7 @@ class veximaccountadmin extends rcube_plugin {
 			} elseif ($act == "INSERT") {
 				$result = false;
 				
-				$this->db->query ( "INSERT INTO whitelists
+				$this->db->query ( "INSERT INTO whitelistxs
 					   (user_id, domain_id, whitehdr,whiteval,color)
 					   VALUES ('" . $user_id . "', '" . $domain_id . "', '" . $prefswhite [$idx] . "', '" . $valswhite [$idx] . "', 'black')" );
 				
@@ -801,7 +797,7 @@ class veximaccountadmin extends rcube_plugin {
 			}
 		}
 		
-		$sql = 'UPDATE `users` SET `on_avscan` = ' . $this->db->quote ( $on_avscan, 'text' ) . ', `on_spamassassin` = ' . $this->db->quote ( $on_spamassassin, 'text' ) . ', `sa_tag` = ' . $this->db->quote ( $sa_tag, 'text' ) . ', `sa_refuse` = ' . $this->db->quote ( $sa_refuse, 'text' ) . ', `on_vacation` = ' . $this->db->quote ( $on_vacation, 'text' ) . ', `vacation` = ' . $this->db->quote ( $vacation, 'text' ) . ', `on_forward` = ' . $this->db->quote ( $on_forward, 'text' ) . ', `forward` = ' . $this->db->quote ( $forward, 'text' ) . ', `unseen` = ' . $this->db->quote ( $unseen, 'text' ) . ', `maxmsgsize` = ' . $this->db->quote ( $maxmsgsize, 'text' ) . ', `spam_drop` = ' . $this->db->quote ( $spam_drop, 'text' ) . ' WHERE `username` = ' . $this->db->quote ( $user, 'text' ) . ' LIMIT 1;';
+		$sql = 'UPDATE `userxs` SET `on_avscan` = ' . $this->db->quote ( $on_avscan, 'text' ) . ', `on_spamassassin` = ' . $this->db->quote ( $on_spamassassin, 'text' ) . ', `sa_tag` = ' . $this->db->quote ( $sa_tag, 'text' ) . ', `sa_refuse` = ' . $this->db->quote ( $sa_refuse, 'text' ) . ', `on_vacation` = ' . $this->db->quote ( $on_vacation, 'text' ) . ', `vacation` = ' . $this->db->quote ( $vacation, 'text' ) . ', `on_forward` = ' . $this->db->quote ( $on_forward, 'text' ) . ', `forward` = ' . $this->db->quote ( $forward, 'text' ) . ', `unseen` = ' . $this->db->quote ( $unseen, 'text' ) . ', `maxmsgsize` = ' . $this->db->quote ( $maxmsgsize, 'text' ) . ', `spam_drop` = ' . $this->db->quote ( $spam_drop, 'text' ) . ' WHERE `username` = ' . $this->db->quote ( $user, 'text' ) . ' LIMIT 1;';
 		
 		$config_error = 0;
 		$res = $this->db->query ( $sql );
@@ -873,107 +869,103 @@ class veximaccountadmin extends rcube_plugin {
 		// If still here - send all error messages.
 		return $this->gettext ( 'saveerror-internalerror' ) . $addtomessage;
 	}
-	private function _address_row($address_table, $field, $value, $attrib) {
+	private function _address_row($address_table, $field, $value) {
 		if (! isset ( $field ))
 			$address_table->set_row_attribs ( array (
-					'style' => 'display: none;'
+					'style' => 'display: none;' 
 			) );
-			
-			$hidden_action = new html_hiddenfield ( array (
-					'name' => '_headerblock_rule_act[]',
-					'value' => ''
-			) );
-			$hidden_field = new html_hiddenfield ( array (
-					'name' => '_headerblock_rule_field[]',
-					'value' => $field
-			) );
-			$hidden_text = new html_hiddenfield ( array (
-					'name' => '_headerblock_rule_value[]',
-					'value' => $value
-			) );
-			
-			switch ($field) {
-				case "From" :
-					$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headerfrom' ) );
-					break;
-				case "To" :
-					$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headerto' ) );
-					break;
-				case "Subject" :
-					$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headersubject' ) );
-					break;
-				case "X-Mailer" :
-					$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headerxmailer' ) );
-					break;
-			}
-			
-			$address_table->add ( array (
-					'class' => 'field'
-			), $fieldtxt );
-			$address_table->add ( array (
-					'class' => 'email'
-			), $value );
-			$del_button = $this->api->output->button ( array (
-					'command' => 'plugin.veximaccountadmin.addressrule_del',
-					'type' => 'image',
-					'image' => 'plugins/veximaccountadmin/delete.png',
-					'alt' => 'delete',
-					'title' => 'delete'
-			) );
-			$address_table->add ( 'control', '&nbsp;' . $del_button . $hidden_action->show () . $hidden_field->show () . $hidden_text->show () );
-			
-			return $address_table;
+		
+		$hidden_action = new html_hiddenfield ( array (
+				'name' => '_headerblock_rule_act[]',
+				'value' => '' 
+		) );
+		$hidden_field = new html_hiddenfield ( array (
+				'name' => '_headerblock_rule_field[]',
+				'value' => $field 
+		) );
+		$hidden_text = new html_hiddenfield ( array (
+				'name' => '_headerblock_rule_value[]',
+				'value' => $value 
+		) );
+		
+		switch ($field) {
+			case "From" :
+				$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headerfrom' ) );
+				break;
+			case "To" :
+				$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headerto' ) );
+				break;
+			case "Subject" :
+				$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headersubject' ) );
+				break;
+			case "X-Mailer" :
+				$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headerxmailer' ) );
+				break;
+		}
+		
+		$address_table->add ( 'field', $fieldtxt );
+		$address_table->add ( 'email', $value );
+		$del_button = $this->api->output->button ( array (
+				'command' => 'plugin.veximaccountadmin.addressrule_del',
+				'type' => 'image',
+				'image' => 'plugins/veximaccountadmin/delete.png',
+				'alt' => 'delete',
+				'title' => 'delete' 
+		) );
+		$address_table->add ( 'control', '&nbsp;' . $del_button . $hidden_action->show () . $hidden_field->show () . $hidden_text->show () );
+		
+		return $address_table;
 	}
-	private function _whiteaddress_row($address_table, $field, $value, $attrib) {
+	private function _whiteaddress_row($address_table, $field, $value) {
 		if (! isset ( $field ))
 			$address_table->set_row_attribs ( array (
-					'style' => 'display: none;'
+					'style' => 'display: none;' 
 			) );
-			
-			$hidden_action = new html_hiddenfield ( array (
-					'name' => '_headerwhite_rule_act[]',
-					'value' => ''
-			) );
-			$hidden_field = new html_hiddenfield ( array (
-					'name' => '_headerwhite_rule_field[]',
-					'value' => $field
-			) );
-			$hidden_text = new html_hiddenfield ( array (
-					'name' => '_headerwhite_rule_value[]',
-					'value' => $value
-			) );
-			
-			switch ($field) {
-				case "From" :
-					$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headerfrom' ) );
-					break;
-				case "To" :
-					$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headerto' ) );
-					break;
-				case "Subject" :
-					$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headersubject' ) );
-					break;
-				case "X-Mailer" :
-					$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headerxmailer' ) );
-					break;
-			}
-			
-			$address_table->add ( array (
-					'class' => 'field'
-			), $fieldtxt );
-			$address_table->add ( array (
-					'class' => 'email'
-			), $value );
-			$del_button = $this->api->output->button ( array (
-					'command' => 'plugin.veximaccountadmin.whiteaddressrule_del',
-					'type' => 'image',
-					'image' => 'plugins/veximaccountadmin/delete.png',
-					'alt' => 'delete',
-					'title' => 'delete'
-			) );
-			$address_table->add ( 'control', '&nbsp;' . $del_button . $hidden_action->show () . $hidden_field->show () . $hidden_text->show () );
-			
-			return $address_table;
+		
+		$hidden_action = new html_hiddenfield ( array (
+				'name' => '_headerwhite_rule_act[]',
+				'value' => '' 
+		) );
+		$hidden_field = new html_hiddenfield ( array (
+				'name' => '_headerwhite_rule_field[]',
+				'value' => $field 
+		) );
+		$hidden_text = new html_hiddenfield ( array (
+				'name' => '_headerwhite_rule_value[]',
+				'value' => $value 
+		) );
+		
+		switch ($field) {
+			case "From" :
+				$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headerfrom' ) );
+				break;
+			case "To" :
+				$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headerto' ) );
+				break;
+			case "Subject" :
+				$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headersubject' ) );
+				break;
+			case "X-Mailer" :
+				$fieldtxt = rcube_utils::rep_specialchars_output ( $this->gettext ( 'headerxmailer' ) );
+				break;
+		}
+		
+		$address_table->add ( array (
+				'class' => 'field' 
+		), $fieldtxt );
+		$address_table->add ( array (
+				'class' => 'email' 
+		), $value );
+		$del_button = $this->api->output->button ( array (
+				'command' => 'plugin.veximaccountadmin.whiteaddressrule_del',
+				'type' => 'image',
+				'image' => 'plugins/veximaccountadmin/delete.png',
+				'alt' => 'delete',
+				'title' => 'delete' 
+		) );
+		$address_table->add ( 'control', '&nbsp;' . $del_button . $hidden_action->show () . $hidden_field->show () . $hidden_text->show () );
+		
+		return $address_table;
 	}
 	
 	/* crypt the plaintext password -- from Vexim */
