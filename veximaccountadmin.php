@@ -140,20 +140,20 @@ class veximaccountadmin extends rcube_plugin {
 		
 		$maxmsgsize = rcube_utils::get_input_value ( 'maxmsgsize', rcube_utils::INPUT_POST );
 		
-		$acts = rcube_utils::get_input_value ( '_headerblock_rule_act[]', rcube_utils::INPUT_POST );
-		$prefs = rcube_utils::get_input_value ( '_headerblock_rule_field[]', rcube_utils::INPUT_POST );
-		$vals = rcube_utils::get_input_value ( '_headerblock_rule_value[]', rcube_utils::INPUT_POST );
+		$acts = rcube_utils::get_input_value ( '_headerblock_rule_act', rcube_utils::INPUT_POST );
+		$prefs = rcube_utils::get_input_value ( '_headerblock_rule_field', rcube_utils::INPUT_POST );
+		$vals = rcube_utils::get_input_value ( '_headerblock_rule_value', rcube_utils::INPUT_POST );
 		
-		$actswhite = rcube_utils::get_input_value ( '_headerwhite_rule_act[]', rcube_utils::INPUT_POST );
-		$prefswhite = rcube_utils::get_input_value ( '_headerwhite_rule_field[]', rcube_utils::INPUT_POST );
-		$valswhite = rcube_utils::get_input_value ( '_headerwhite_rule_value[]', rcube_utils::INPUT_POST );	
+		$actswhite = rcube_utils::get_input_value ( '_headerwhite_rule_act', rcube_utils::INPUT_POST );
+		$prefswhite = rcube_utils::get_input_value ( '_headerwhite_rule_field', rcube_utils::INPUT_POST );
+		$valswhite = rcube_utils::get_input_value ( '_headerwhite_rule_value', rcube_utils::INPUT_POST );	
 		
 		$res = $this->_save ( $user, $on_avscan, $on_spamassassin, $sa_tag, $sa_refuse, $spam_drop, $on_vacation, $vacation, $on_forward, $forward, $unseen, $maxmsgsize, $acts, $prefs, $vals, $actswhite, $prefswhite, $valswhite );
 		
 		if (! $res) {
 			$rcmail->output->command ( 'display_message', $this->gettext ( 'savesuccess-config' ), 'confirmation' );
 		} else {
-			$rcmail->output->command ( 'display_message', $res . ':' . print_r($acts, TRUE) . ':' . print_r($prefs, TRUE) . ':' . print_r($vals, TRUE), 'error' );
+			$rcmail->output->command ( 'display_message', $res, 'error' );
 		}
 		
 		$rcmail->overwrite_action ( 'plugin.veximaccountadmin' );
@@ -741,6 +741,9 @@ class veximaccountadmin extends rcube_plugin {
 		$user_id = $settings ['user_id'];
 		$domain_id = $settings ['domain_id'];
 		
+		if (!$user_id) $user_id = 0;
+		if (!$domain_id) $domain_id = 0;
+		
 		$vacation = quoted_printable_encode ( $vacation );
 		
 		foreach ( $acts as $idx => $act ) {
@@ -759,7 +762,7 @@ class veximaccountadmin extends rcube_plugin {
 			} elseif ($act == "INSERT") {
 				$result = false;
 				
-				$this->db->query ( "INSERT INTO blocklistxs
+				$this->db->query ( "INSERT INTO blocklists
 					   (user_id, domain_id, blockhdr,blockval,color)
 					   VALUES ('" . $user_id . "', '" . $domain_id . "', '" . $prefs [$idx] . "', '" . $vals [$idx] . "', 'black')" );
 				
@@ -786,7 +789,7 @@ class veximaccountadmin extends rcube_plugin {
 			} elseif ($act == "INSERT") {
 				$result = false;
 				
-				$this->db->query ( "INSERT INTO whitelistxs
+				$this->db->query ( "INSERT INTO whitelists
 					   (user_id, domain_id, whitehdr,whiteval,color)
 					   VALUES ('" . $user_id . "', '" . $domain_id . "', '" . $prefswhite [$idx] . "', '" . $valswhite [$idx] . "', 'black')" );
 				
@@ -797,7 +800,7 @@ class veximaccountadmin extends rcube_plugin {
 			}
 		}
 		
-		$sql = 'UPDATE `userxs` SET `on_avscan` = ' . $this->db->quote ( $on_avscan, 'text' ) . ', `on_spamassassin` = ' . $this->db->quote ( $on_spamassassin, 'text' ) . ', `sa_tag` = ' . $this->db->quote ( $sa_tag, 'text' ) . ', `sa_refuse` = ' . $this->db->quote ( $sa_refuse, 'text' ) . ', `on_vacation` = ' . $this->db->quote ( $on_vacation, 'text' ) . ', `vacation` = ' . $this->db->quote ( $vacation, 'text' ) . ', `on_forward` = ' . $this->db->quote ( $on_forward, 'text' ) . ', `forward` = ' . $this->db->quote ( $forward, 'text' ) . ', `unseen` = ' . $this->db->quote ( $unseen, 'text' ) . ', `maxmsgsize` = ' . $this->db->quote ( $maxmsgsize, 'text' ) . ', `spam_drop` = ' . $this->db->quote ( $spam_drop, 'text' ) . ' WHERE `username` = ' . $this->db->quote ( $user, 'text' ) . ' LIMIT 1;';
+		$sql = 'UPDATE `users` SET `on_avscan` = ' . $this->db->quote ( $on_avscan, 'text' ) . ', `on_spamassassin` = ' . $this->db->quote ( $on_spamassassin, 'text' ) . ', `sa_tag` = ' . $this->db->quote ( $sa_tag, 'text' ) . ', `sa_refuse` = ' . $this->db->quote ( $sa_refuse, 'text' ) . ', `on_vacation` = ' . $this->db->quote ( $on_vacation, 'text' ) . ', `vacation` = ' . $this->db->quote ( $vacation, 'text' ) . ', `on_forward` = ' . $this->db->quote ( $on_forward, 'text' ) . ', `forward` = ' . $this->db->quote ( $forward, 'text' ) . ', `unseen` = ' . $this->db->quote ( $unseen, 'text' ) . ', `maxmsgsize` = ' . $this->db->quote ( $maxmsgsize, 'text' ) . ', `spam_drop` = ' . $this->db->quote ( $spam_drop, 'text' ) . ' WHERE `username` = ' . $this->db->quote ( $user, 'text' ) . ' LIMIT 1;';
 		
 		$config_error = 0;
 		$res = $this->db->query ( $sql );
