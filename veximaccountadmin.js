@@ -111,8 +111,15 @@ if (window.rcmail) {
 														.getElementsByName('_headerblock_rule_act[]')[fieldidx].value = "DELETE";
 											}
 
-											rcmail.env.address_rule_count--;
-											if (rcmail.env.address_rule_count < 1)
+											var noAdresses = true;
+											var fldTable = document.getElementsByName('_headerblock_rule_act[]');
+											for (var i = 1; i < fldTable.length; i++) {
+											  if (fldTable[i].value != "DELETE") {
+												  noAdresses = false;
+												  break;
+											  }
+											}
+											if (noAdresses)
 												adrTable.rows[1].style.display = '';
 
 											return false;
@@ -182,8 +189,6 @@ if (window.rcmail) {
 
 												input_headerblockrule.selectedIndex = 0;
 												input_headerblockvalue.value = '';
-
-												rcmail.env.address_rule_count++;
 											}
 										}, true);
 
@@ -202,13 +207,11 @@ if (window.rcmail) {
 												if (document
 														.getElementsByName('_headerblock_rule_act[]')[i - 1].value == "INSERT") {
 													adrTable.deleteRow(i);
-													rcmail.env.address_rule_count--;
 												} else if (document
 														.getElementsByName('_headerblock_rule_act[]')[i - 1].value != "DELETE") {
 													adrTable.rows[i].style.display = 'none';
 													document
 															.getElementsByName('_headerblock_rule_act[]')[i - 1].value = "DELETE";
-													rcmail.env.address_rule_count--;
 												}
 											}
 
@@ -238,8 +241,15 @@ if (window.rcmail) {
 														.getElementsByName('_headerwhite_rule_act[]')[fieldidx].value = "DELETE";
 											}
 
-											rcmail.env.address_rule_count--;
-											if (rcmail.env.address_rule_count < 1)
+											var noAdresses = true;
+											var fldTable = document.getElementsByName('_headerwhite_rule_act[]');
+											for (var i = 1; i < fldTable.length; i++) {
+											  if (fldTable[i].value != "DELETE") {
+												  noAdresses = false;
+												  break;
+											  }
+											}
+											if (noAdresses)
 												adrTable.rows[1].style.display = '';
 
 											return false;
@@ -310,7 +320,6 @@ if (window.rcmail) {
 												input_headerwhiterule.selectedIndex = 0;
 												input_headerwhitevalue.value = '';
 
-												rcmail.env.address_rule_count++;
 											}
 										}, true);
 
@@ -329,13 +338,11 @@ if (window.rcmail) {
 												if (document
 														.getElementsByName('_headerwhite_rule_act[]')[i - 1].value == "INSERT") {
 													adrTable.deleteRow(i);
-													rcmail.env.address_rule_count--;
 												} else if (document
 														.getElementsByName('_headerwhite_rule_act[]')[i - 1].value != "DELETE") {
 													adrTable.rows[i].style.display = 'none';
 													document
 															.getElementsByName('_headerwhite_rule_act[]')[i - 1].value = "DELETE";
-													rcmail.env.address_rule_count--;
 												}
 											}
 

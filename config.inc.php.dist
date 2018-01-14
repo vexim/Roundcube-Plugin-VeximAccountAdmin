@@ -19,3 +19,6 @@ $veximaccountadmin_config['vexim_cryptscheme'] = 'sha512';
 $veximaccountadmin_config['show_admin_link'] = true;
 // Vexim link URL, relative to Roundcube or external
 $veximaccountadmin_config['vexim_url'] = '../vexim/';
+
+// Set to true, if testing standalone with a fresh initialized vexim database
+$veximaccountadmin_config['testing'] = false;

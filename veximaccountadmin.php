@@ -185,6 +185,13 @@ class veximaccountadmin extends rcube_plugin {
 		$user_id = $settings ['user_id'];
 		$domain_id = $settings ['domain_id'];
 		
+		if ($this->config ['testing'] == true) {
+			if (! $user_id)
+				$user_id = 1;
+			if (! $domain_id)
+				$domain_id = 1;
+		}
+		
 		$domain_settings = $this->_get_domain_configuration ( $domain_id );
 		
 		$default_sa_tag = $domain_settings ['sa_tag'];
@@ -507,9 +514,6 @@ class veximaccountadmin extends rcube_plugin {
 		$address_table->add ( array (
 				'colspan' => '3' 
 		), rcube_utils::rep_specialchars_output ( $this->gettext ( 'noaddressrules' ) ) );
-		// $address_table->add_row ();
-		
-		$this->api->output->set_env ( 'address_rule_count', $this->db->num_rows () );
 		
 		while ( $sql_result && $sql_arr = $this->db->fetch_assoc ( $sql_result ) ) {
 			$field = $sql_arr ['blockhdr'];
@@ -624,9 +628,6 @@ class veximaccountadmin extends rcube_plugin {
 		$address_table->add ( array (
 				'colspan' => '3' 
 		), rcube_utils::rep_specialchars_output ( $this->gettext ( 'nowhiteaddressrules' ) ) );
-		//$address_table->add_row ();
-		
-		$this->api->output->set_env ( 'address_rule_count', $this->db->num_rows () );
 		
 		while ( $sql_result && $sql_arr = $this->db->fetch_assoc ( $sql_result ) ) {
 			$field = $sql_arr ['whitehdr'];
@@ -741,8 +742,12 @@ class veximaccountadmin extends rcube_plugin {
 		$user_id = $settings ['user_id'];
 		$domain_id = $settings ['domain_id'];
 		
-		if (!$user_id) $user_id = 0;
-		if (!$domain_id) $domain_id = 0;
+		if ($this->config ['testing'] == true) {
+			if (! $user_id)
+				$user_id = 1;
+			if (! $domain_id)
+				$domain_id = 1;
+		}
 		
 		$vacation = quoted_printable_encode ( $vacation );
 		
