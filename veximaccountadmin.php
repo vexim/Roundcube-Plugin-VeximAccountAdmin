@@ -279,16 +279,13 @@ class veximaccountadmin extends rcube_plugin {
 				'class' => 'select' 
 		) );
 		
-		$decPlaces = 0;
 		$found_number = false;
 		for($i = 1; $i <= 20; $i = $i + 1) {
-			$i = number_format ( $i, $decPlaces );
 			$input_spamscoretag->add ( $i, $i );
 			if ($sa_tag == $i)
 				$found_number = true;
 		}
 		for($i = 25; $i <= 100; $i = $i + 5) {
-			$i = number_format ( $i, $decPlaces );
 			$input_spamscoretag->add ( $i, $i );
 			if ($sa_tag == $i)
 				$found_number = true;
@@ -311,24 +308,20 @@ class veximaccountadmin extends rcube_plugin {
 		
 		$found_number = false;
 		for($i = 1; $i <= 20; $i = $i + 1) {
-			$i = number_format ( $i, $decPlaces );
 			$input_spamscorerefuse->add ( $i, $i );
 			if ($sa_refuse == $i)
 				$found_number = true;
 		}
 		for($i = 25; $i <= 200; $i = $i + 5) {
-			$i = number_format ( $i, $decPlaces );
 			$input_spamscorerefuse->add ( $i, $i );
 			if ($sa_refuse == $i)
 				$found_number = true;
 		}
 		for($i = 300; $i <= 900; $i = $i + 100) {
-			$i = number_format ( $i, $decPlaces );
 			$input_spamscorerefuse->add ( $i, $i );
 			if ($sa_refuse == $i)
 				$found_number = true;
 		}
-		$i = number_format ( 999, $decPlaces );
 		$input_spamscorerefuse->add ( $i, $i );
 		if ($sa_refuse == $i)
 			$found_number = true;
