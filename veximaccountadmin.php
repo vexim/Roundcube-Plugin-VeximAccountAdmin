@@ -706,7 +706,7 @@ class veximaccountadmin extends rcube_plugin {
 		$rcmail = rcmail::get_instance ();
 		$this->_db_connect ( 'r' );
 		
-		$sql = 'SELECT * FROM `users` WHERE `username` = ' . $this->db->quote ( $rcmail->user->data ['username'], 'text' ) . ' LIMIT 1;';
+		$sql = 'SELECT * FROM `users` WHERE `username` = ' . $this->db->quote ( $rcmail->user->data ['username'], 'text' ) . ' ;';
 		$res = $this->db->query ( $sql );
 		
 		if ($err = $this->db->is_error ()) {
@@ -723,7 +723,7 @@ class veximaccountadmin extends rcube_plugin {
 		$rcmail = rcmail::get_instance ();
 		$this->_db_connect ( 'r' );
 		
-		$sql = 'SELECT * FROM `domains` WHERE `domain_id` = ' . $this->db->quote ( $domain_id ) . ' LIMIT 1;';
+		$sql = 'SELECT * FROM `domains` WHERE `domain_id` = ' . $this->db->quote ( $domain_id ) . ' ;';
 		$res = $this->db->query ( $sql );
 		
 		if ($err = $this->db->is_error ()) {
@@ -805,7 +805,7 @@ class veximaccountadmin extends rcube_plugin {
 			}
 		}
 		
-		$sql = 'UPDATE `users` SET `on_avscan` = ' . $this->db->quote ( $on_avscan, 'text' ) . ', `on_spamassassin` = ' . $this->db->quote ( $on_spamassassin, 'text' ) . ', `sa_tag` = ' . $this->db->quote ( $sa_tag, 'text' ) . ', `sa_refuse` = ' . $this->db->quote ( $sa_refuse, 'text' ) . ', `on_vacation` = ' . $this->db->quote ( $on_vacation, 'text' ) . ', `vacation` = ' . $this->db->quote ( $vacation, 'text' ) . ', `on_forward` = ' . $this->db->quote ( $on_forward, 'text' ) . ', `forward` = ' . $this->db->quote ( $forward, 'text' ) . ', `unseen` = ' . $this->db->quote ( $unseen, 'text' ) . ', `maxmsgsize` = ' . $this->db->quote ( $maxmsgsize, 'text' ) . ', `spam_drop` = ' . $this->db->quote ( $spam_drop, 'text' ) . ' WHERE `username` = ' . $this->db->quote ( $user, 'text' ) . ' LIMIT 1;';
+		$sql = 'UPDATE `users` SET `on_avscan` = ' . $this->db->quote ( $on_avscan, 'text' ) . ', `on_spamassassin` = ' . $this->db->quote ( $on_spamassassin, 'text' ) . ', `sa_tag` = ' . $this->db->quote ( $sa_tag, 'text' ) . ', `sa_refuse` = ' . $this->db->quote ( $sa_refuse, 'text' ) . ', `on_vacation` = ' . $this->db->quote ( $on_vacation, 'text' ) . ', `vacation` = ' . $this->db->quote ( $vacation, 'text' ) . ', `on_forward` = ' . $this->db->quote ( $on_forward, 'text' ) . ', `forward` = ' . $this->db->quote ( $forward, 'text' ) . ', `unseen` = ' . $this->db->quote ( $unseen, 'text' ) . ', `maxmsgsize` = ' . $this->db->quote ( $maxmsgsize, 'text' ) . ', `spam_drop` = ' . $this->db->quote ( $spam_drop, 'text' ) . ' WHERE `username` = ' . $this->db->quote ( $user, 'text' ) . ' ;';
 		
 		$config_error = 0;
 		$res = $this->db->query ( $sql );
@@ -832,7 +832,7 @@ class veximaccountadmin extends rcube_plugin {
 			} else {
 				
 				$crypted_password = $this->_crypt_password ( $newpwd );
-				$sql_pass = "UPDATE users SET crypt=" . $this->db->quote ( $crypted_password ) . " WHERE username=" . $this->db->quote ( $user, 'text' ) . " LIMIT 1";
+				$sql_pass = "UPDATE users SET crypt=" . $this->db->quote ( $crypted_password ) . " WHERE username=" . $this->db->quote ( $user, 'text' ) . ' ;';
 				
 				$res_pass = $this->db->query ( $sql_pass );
 				if ($err = $this->db->is_error ()) {
