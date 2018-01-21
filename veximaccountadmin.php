@@ -170,11 +170,15 @@ class veximaccountadmin extends rcube_plugin
 			'veximaccountadmin.autoresponderlong',
 			'veximaccountadmin.autoresponderlongnum',
 			'veximaccountadmin.autoresponderlongmax',
-			'veximaccountadmin.headerblockdelete',
-			'veximaccountadmin.headerblockdeleteall',
-			'veximaccountadmin.headerblockexists',
-			'veximaccountadmin.headerblockentervalue'
-		);
+		    'veximaccountadmin.headerblockdelete',
+		    'veximaccountadmin.headerblockdeleteall',
+		    'veximaccountadmin.headerblockexists',
+		    'veximaccountadmin.headerblockentervalue',
+		    'veximaccountadmin.headerwhitedelete',
+		    'veximaccountadmin.headerwhitedeleteall',
+		    'veximaccountadmin.headerwhiteexists',
+		    'veximaccountadmin.headerwhiteentervalue'
+		    );
         
         $rcmail->output->set_env('product_name', $rcmail->config->get('product_name'));
         
