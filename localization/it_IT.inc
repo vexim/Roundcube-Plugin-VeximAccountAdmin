@@ -57,6 +57,16 @@ $messages['headerblockdeleteall']  = 'Cancellare tutte le regole?';
 $messages['headerblockexists']  = 'Regola già presente';
 $messages['headerblockentervalue']  = 'Valore mancante';
 
+$labels['whitebyheader']  = 'Pass by header';
+$labels['whitebyheaderexplanation']  = 'The rules below will be checked against the mail header fields, and mail that matches will overwrite any blocking rule. Note that the match must be excact, not partial.';
+$labels['whiteaddrule']  = 'Add pass rule';
+$labels['nowhiteaddressrules']  = 'No pass rules';
+
+$messages['headerwhitedelete']  = 'Are you sure you want to delete this rule?';
+$messages['headerwhitedeleteall']  = 'Are you sure you want to delete all pass rules?';
+$messages['headerwhiteexists']  = 'This rule already exists';
+$messages['headerwhiteentervalue']  = 'You have to enter a value to the rule';
+
 $labels['introtext']  = 'Qui si amministrano le impostazioni del suo account. Si ricordi che queste impostazioni sono legate alla sua casella in generale, e non soltanto alla webmail, pertanto ogni cambiamento in questa pagina riguarda anche eventuali altri client.';
 $labels['adminlinktext']  = 'Il suo account è amministrativo, ma in questa pagina è possibile modificare solo le sue impostazioni personali. Per accedere all\'amministrazione del dominio (aggiunta modifica account, alias, liste...) si autentichi su %sVexim%s.';
 

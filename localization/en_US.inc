@@ -61,6 +61,16 @@ $messages['headerblockdeleteall']  = 'Are you sure you want to delete all block 
 $messages['headerblockexists']  = 'This rule already exists';
 $messages['headerblockentervalue']  = 'You have to enter a value to the rule';
 
+$labels['whitebyheader']  = 'Pass by header';
+$labels['whitebyheaderexplanation']  = 'The rules below will be checked against the mail header fields, and mail that matches will overwrite any blocking rule. Note that the match must be excact, not partial.';
+$labels['addwhiterule']  = 'Add pass rule';
+$labels['nowhiteaddressrules']  = 'No pass rules';
+
+$messages['headerwhitedelete']  = 'Are you sure you want to delete this rule?';
+$messages['headerwhitedeleteall']  = 'Are you sure you want to delete all pass rules?';
+$messages['headerwhiteexists']  = 'This rule already exists';
+$messages['headerwhiteentervalue']  = 'You have to enter a value to the rule';
+
 $labels['introtext']  = 'Here you can administrate your account settings. Remember that these settings are tied to the mail server itself, not only the webmail. Changes on this page will therefore also affect third-party mail clients you may use.';
 $labels['adminlinktext']  = 'You are registered as a domain administrator. On this page you can only edit your own settings. To get admin access for the whole domain (add/edit accounts, aliases, lists etc.) you will need to log in to %sVexim%s.';
 

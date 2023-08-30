@@ -59,9 +59,16 @@ if (window.rcmail) {
 					document.getElementsByName('_headerblock_rule_act[]')[fieldidx].value = "DELETE";
 				}
 
-				rcmail.env.address_rule_count--;
-				if (rcmail.env.address_rule_count < 1)
-					adrTable.rows[1].style.display = '';
+                var noAdresses = true;
+                var fldTable = document.getElementsByName('_headerblock_rule_act[]');
+                for (var i = 1; i < fldTable.length; i++) {
+                    if (fldTable[i].value != "DELETE") {
+                        noAdresses = false;
+                        break;
+                    }
+                }
+                if (noAdresses)
+                    adrTable.rows[1].style.display = '';
 
 				return false;
 			}, true);
@@ -104,7 +111,6 @@ if (window.rcmail) {
 						adrTable.appendChild(newNode);
 
 					newNode.style.display = "";
-					newNode.cells[0].className = input_headerblockrule.options[selrule].value;
 					newNode.cells[0].innerHTML = input_headerblockrule.options[selrule].text;
 					newNode.cells[1].innerHTML = input_headerblockvalue.value;
 					actions[newNode.rowIndex - 2].value = "INSERT";
@@ -114,7 +120,6 @@ if (window.rcmail) {
 					input_headerblockrule.selectedIndex = 0;
 					input_headerblockvalue.value = '';
 
-					rcmail.env.address_rule_count++;
 				}
 			}, true);
 
@@ -128,12 +133,10 @@ if (window.rcmail) {
 				for (var i = adrTable.rows.length - 1; i > 1; i--) {
 					if (document.getElementsByName('_headerblock_rule_act[]')[i-1].value == "INSERT") {
 						adrTable.deleteRow(i);
-						rcmail.env.address_rule_count--;
 					}
 					else if (document.getElementsByName('_headerblock_rule_act[]')[i-1].value != "DELETE") {
 						adrTable.rows[i].style.display = 'none';
 						document.getElementsByName('_headerblock_rule_act[]')[i-1].value = "DELETE";
-						rcmail.env.address_rule_count--;
 					}
 				}
 
@@ -143,10 +146,136 @@ if (window.rcmail) {
 
 			
 
-	})
+						rcmail
+								.register_command(
+										'plugin.veximaccountadmin.whiteaddressrule_del',
+										function(props, obj) {
+											var adrTable = rcube_find_object('headerwhite-rules-table').tBodies[0];
+											var rowidx = obj.parentNode.parentNode.rowIndex - 1;
+											var fieldidx = rowidx - 1;
+
+											if (!confirm(rcmail.gettext(
+													'headerwhitedelete',
+													'veximaccountadmin')))
+												return false;
+
+											if (document
+													.getElementsByName('_headerwhite_rule_act[]')[fieldidx].value == "INSERT") {
+												adrTable.deleteRow(rowidx);
+											} else {
+												adrTable.rows[rowidx].style.display = 'none';
+												document
+														.getElementsByName('_headerwhite_rule_act[]')[fieldidx].value = "DELETE";
+											}
+
+											var noAdresses = true;
+											var fldTable = document.getElementsByName('_headerwhite_rule_act[]');
+											for (var i = 1; i < fldTable.length; i++) {
+											  if (fldTable[i].value != "DELETE") {
+												  noAdresses = false;
+												  break;
+											  }
+											}
+											if (noAdresses)
+												adrTable.rows[1].style.display = '';
+
+											return false;
+										}, true);
+
+						rcmail
+								.register_command(
+										'plugin.veximaccountadmin.headerwhite_add',
+										function() {
+											var adrTable = rcube_find_object('headerwhite-rules-table').tBodies[0];
+											var input_headerwhiterule = rcube_find_object('_headerwhiterule');
+											var selrule = input_headerwhiterule.selectedIndex;
+											var input_headerwhitevalue = rcube_find_object('_headerwhitevalue');
+
+											if (input_headerwhitevalue.value
+													.replace(/^\s+|\s+$/g, '') == '') {
+												alert(rcmail
+														.gettext(
+																'headerwhiteentervalue',
+																'veximaccountadmin'));
+												input_headerwhitevalue.focus();
+												return false;
+											} else {
+												var actions = document
+														.getElementsByName('_headerwhite_rule_act[]');
+												var prefs = document
+														.getElementsByName('_headerwhite_rule_field[]');
+												var addresses = document
+														.getElementsByName('_headerwhite_rule_value[]');
+												var insHere;
+
+												for (var i = 1; i < addresses.length; i++) {
+													if (prefs[i].value == input_headerwhiterule.options[selrule].value
+															&& addresses[i].value == input_headerwhitevalue.value
+															&& actions[i].value != "DELETE") {
+														alert(rcmail
+																.gettext(
+																		'headerwhiteexists',
+																		'veximaccountadmin'));
+														input_headerwhitevalue
+																.focus();
+														return false;
+													} else if (addresses[i].value > input_headerwhitevalue.value) {
+														insHere = adrTable.rows[i + 1];
+														break;
+													}
+												}
+
+												var newNode = adrTable.rows[0]
+														.cloneNode(true);
+												adrTable.rows[1].style.display = 'none';
+
+												if (insHere)
+													adrTable.insertBefore(
+															newNode, insHere);
+												else
+													adrTable
+															.appendChild(newNode);
+
+												newNode.style.display = "";
+												newNode.cells[0].className = input_headerwhiterule.options[selrule].value;
+												newNode.cells[0].innerHTML = input_headerwhiterule.options[selrule].text;
+												newNode.cells[1].innerHTML = input_headerwhitevalue.value;
+												actions[newNode.rowIndex - 2].value = "INSERT";
+												prefs[newNode.rowIndex - 2].value = input_headerwhiterule.options[selrule].value;
+												addresses[newNode.rowIndex - 2].value = input_headerwhitevalue.value;
+
+												input_headerwhiterule.selectedIndex = 0;
+												input_headerwhitevalue.value = '';
+
+											}
+										}, true);
+
+						rcmail
+								.register_command(
+										'plugin.veximaccountadmin.headerwhite_delete_all',
+										function(props, obj) {
+											var adrTable = rcube_find_object('headerwhite-rules-table').tBodies[0];
+
+											if (!confirm(rcmail.gettext(
+													'headerwhitedeleteall',
+													'veximaccountadmin')))
+												return false;
+
+											for (var i = adrTable.rows.length - 1; i > 1; i--) {
+												if (document
+														.getElementsByName('_headerwhite_rule_act[]')[i - 1].value == "INSERT") {
+													adrTable.deleteRow(i);
+												} else if (document
+														.getElementsByName('_headerwhite_rule_act[]')[i - 1].value != "DELETE") {
+													adrTable.rows[i].style.display = 'none';
+													document
+															.getElementsByName('_headerwhite_rule_act[]')[i - 1].value = "DELETE";
+												}
+											}
+
+											adrTable.rows[1].style.display = '';
+											return false;
+										}, true);
+
+					})
 }
-
-
-
-
-

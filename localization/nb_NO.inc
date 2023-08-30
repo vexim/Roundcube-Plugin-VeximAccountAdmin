@@ -57,6 +57,16 @@ $messages['headerblockdeleteall']  = 'Er du sikker på at du vil slette alle reg
 $messages['headerblockexists']  = 'Denne regelen finnes allerede';
 $messages['headerblockentervalue']  = 'Du må skrive inn en verdi til regelen';
 
+$labels['whitebyheader']  = 'Pass by header';
+$labels['whitebyheaderexplanation']  = 'The rules below will be checked against the mail header fields, and mail that matches will overwrite any blocking rule. Note that the match must be excact, not partial.';
+$labels['whiteaddrule']  = 'Add pass rule';
+$labels['nowhiteaddressrules']  = 'No pass rules';
+
+$messages['headerwhitedelete']  = 'Are you sure you want to delete this rule?';
+$messages['headerwhitedeleteall']  = 'Are you sure you want to delete all pass rules?';
+$messages['headerwhiteexists']  = 'This rule already exists';
+$messages['headerwhiteentervalue']  = 'You have to enter a value to the rule';
+
 $labels['introtext']  = 'Her kan du administrere dine kontoinnstillinger. Husk at disse innstillingene er knyttet til mailserveren, ikke bare webmailen. Endringer du gjør på denne siden vil derfor også påvirke andre mailprogrammer du bruker for denne adressen.';
 $labels['adminlinktext']  = 'Du er oppført som domeneadministrator. Fra denne siden kan du kun endre dine egne kontoinnstillinger, du kan ikke legge til/endre konti, videresendinger, lister osv. For å få slik administratortilgang må du logge på med %sVexim%s.';
 
